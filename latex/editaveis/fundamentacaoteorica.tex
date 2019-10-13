@@ -256,6 +256,109 @@ Haja vista que a malha de controle da unidade inversora é responsável pela sin
 
 Destaca-se ainda a inclusão de atrasos nos pulsos de chaveamento, denominado de tempo morto. O objetivo desta ação é evitar que o barramento CC se submeta a um curto-circuito, quando da operação do inversor. Observa-se que esta operação prova um comportamento anormal do inversor, com o aparecimento de componentes harmônicas indesejáveis \cite{DissertacaoLeandro}. 
 
+\section{Controladores da Unidade Inversora}
+
+Estabelecida a estratégia de controle a ser utilizada, deve-se agora determinar os modelos matemáticos dos controladores PI mostrados na Fig. \ref{fig:Estrategia-controle-inversor}, a qual toma como base o diagrama genérico apresentado na Fig. \ref{fig:Controlador_Pi_Generico}. Para realizar tal ação, inicia-se pela representação do conjunto inversor e filtro LCL através de sua função de transferência, o qual resulta na Eq. \ref{eq:funcao_tranf_lcl}, onde $I_2$ é a corrente de saída do inversor, $E$ é a tensão produzida nos terminais de saída do inversor, $L_1$ é a indutância do lado do conversor, $L_2$ é a indutância do lado da rede, $C_f$ é a capacitância do filtro e $R_c$ é a resistência de amortecimento.
+
+\begin{figure}[!hbt]
+	% Center the figure.
+	\begin{center}
+		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
+		\includegraphics[width=\columnwidth]{figuras/Controlador_PI_Generico.PNG}
+		% Create a subtitle for the figure.
+		\caption{Diagrama de blocos genérico de um sistema de controle de malha fechada. Fonte: \cite{DissertacaoLeandro}}
+		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
+		\label{fig:Controlador_Pi_Generico}
+	\end{center}
+\end{figure}
+
+\begin{align}\label{eq:funcao_tranf_lcl}
+	\frac{I_2}{E} = \frac{R_cC_fs + 1}{L_1L_2C_fs^3 + R_cC_f(L_1 + L_2)s^2 + (L_1 + L_2)s}
+\end{align}
+
+Ao se visualizar o comportamento do filtro LCL através de um diagrama de Bode, conforme apresentando na Fig. \ref{fig:Diagrama_Bode_LCL}, verifica-se que a resposta deste em baixa frequência é a mesma para uma configuração em que não se considera o capacitor. Tendo em vista que o filtro LCL se destinar a atenuar as componentes harmônicas de alta frequência, as quais se encontram nas vizinhanças da frequência de chaveamento, sua modelagem, para fins de determinação dos ganhos dos controladores de corrente em frequência fundamental pode desconsiderar a influência deste capacitor \cite{TeseProfAlex}.
+
+\begin{figure}[!hbt]
+	% Center the figure.
+	\begin{center}
+		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
+		\includegraphics[width=\columnwidth]{figuras/Diagrama_Bode_Filtro_LCL.png}
+		% Create a subtitle for the figure.
+		\caption{Diagrama de Bode do filtro LCL. Fonte: \cite{TeseProfAlex}}
+		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
+		\label{fig:Diagrama_Bode_LCL}
+	\end{center}
+\end{figure}
+
+Desta forma, a relação entre a tensão da unidade inversora e do filtro LCL pode ser expressa pela Eq. \ref{eq:relacao_saida_lcl}, onde $v_a$, $v_b$ e $v_c$ são as tensões de fase na saída do filtro LCL, $e_a$, $e_b$ e $e_c$ são as tensões produzidas nos terminais de saída da unidade inversora, $i_a$, $i_b$ e $i_c$ são as correntes que circulam entre o inversor e a rede elétrica, $R_f$ e $L_f$ são, respectivamente, a resistência e a indutância totais do filtro.
+
+\begin{align}\label{eq:relacao_saida_lcl}
+	\begin{bmatrix}
+		e_a \\ e_b \\ e_c
+	\end{bmatrix}
+	= R_f
+	\begin{bmatrix}
+		i_a \\ i_b \\ i_c
+	\end{bmatrix}
+	+ L_f\frac{d}{dt}
+	\begin{bmatrix}
+		i_a \\ i_b \\ i_c
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		v_a \\ v_b \\ v_c
+	\end{bmatrix}
+\end{align}
+
+Pelo fato de o controle da unidade inversora ser embasado em componentes \textit{dq}, é necessário converter a equação \ref{eq:relacao_saida_lcl} para obtenção dos componentes de eixo direto e em quadratura. Mais detalhamento sobre este procedimento, denominado teoria do controle vetorial, pode ser obtido em \cite{book-remusteodorescu201b1}. Aplicando as transformações necessárias, obtêm-se as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq}, que expressam, no sistema \textit{dq}, o balanço das tensões na saída do inversor, onde $v_d$ e $v_q$ são, respectivamente, as tensões de eixo direto e de eixo em quadratura na saída do filtro LCL, $e_q$ e $e_d$ são, respectivamente, as tensões de eixo direto e de eixo em quadratura produzidas pela unidade inversora, $i_d$ e $i_q$ são as correntes de eixo direto e de eixo em quadratura que circulam através do filtro e $\omega$ é a frequência angular da rede elétrica.
+
+\begin{align}
+	v_d = e_q - R_fi_d - L_f \frac{di_d}{dt} + \omega L_fi_q\label{eq:tensao_vd}\\
+	v_q = e_q - R_fi_q - L_f\frac{di_q}{dt} + \omega L_fi_d\label{eq:tensao_vq}
+\end{align}
+
+Ainda fundamentado na teoria vetorial, a potência instantânea entregue pelo inversor à rede elétrica pode ser expressa pelas Eqs. \ref{eq:potencia_instantanea1} e \ref{eq:potencia_instantanea2}. 
+
+\begin{align}
+	p = \frac{3}{2}(v_di_d + v_qi_q)\label{eq:potencia_instantanea1}\\
+	q = \frac{3}{2}(v_di_q - v_qi_d)\label{eq:potencia_instantanea2}
+\end{align}
+
+Destaca-se que as componentes $V_d$ e $V_q$ assumem os valores definidos nas Eqs. \ref{eq:tensao_vd_real} e \ref{eq:tensao_vq_real}, assumindo que as tensões no ponto de acoplamento da unidade eólica são tomadas como referência para a transformação vetorial e estando o eixo direto em fase com o vetor tensão da rede elétrica, onde $|V|$ assume o módulo da tensão no PAC \cite{TeseProfAlex}. 
+
+\begin{align}
+	v_d = |V|\label{eq:tensao_vd_real}\\
+	v_q = 0\label{eq:tensao_vq_real}
+\end{align}
+
+Do apresentado acima, as potências instantâneas ativa e reativa podem ser expressas, respectivamente, pelas Eqs. \ref{eq:potencia_instantanea11} e \ref{eq:potencia_instantanea22}. Com isto, pode-se verificar que o controle de fluxo de potência ativa pode ser realizado através do ajuste da componente $i_d$ que circula entre o inversor e a rede elétrica, enquanto que o fluxo de potência reativa depende da parcela $i_q$.
+
+\begin{align}
+	p = \frac{3}{2}|V|i_d\label{eq:potencia_instantanea11}\\
+	q = \frac{3}{2}|V|i_q\label{eq:potencia_instantanea22}
+\end{align}
+
+Aplicando a transformada de Laplace sobre as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} obtêm-se as funções de transferência referentes à saída do inversor representadas pelas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace}, que destinam-se, respectivamente, a determinação das correntes de eixo direto e eixo em quadratura em função da tensão gerada pelo conversor. Ressalta-se que os termos existentes nas Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} que não constam nas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace} são inseridos na estrutura de controle como parcelas do tipo \textit{feedforward}.
+
+\begin{align}
+	\frac{I_d}{E_d} = \frac{1}{sL_f + R_f}\label{eq:corrente_dire_laplace}\\
+	\frac{I_q}{E_q} = \frac{1}{sL_f + R_f}\label{eq:corrente_quad_laplace}
+\end{align}
+
+As expressões anteriores viabilizam a implementação de duas malhas de controle independentes, e estas tem por objetivo o ajuste das correntes de eixo direto e eixo em quadratura, em torno de um valor de referência. Esta consideração permite a construção do diagrama de blocos apresentado na Fig. \ref{fig:Diagrama_blocos_eixo_dir_quadr}, o qual pode ser utilizado para a determinação das grandezas $k_3$ e $T_3$ do controlador PI utilizado no sistema. Destaca-se que a modelagem do efeito do conversor, no que tangue à dinâmica de chaveamento, é incluído por meio de um ganho unitário. Além disto, o sistema de medição é representado através de um atraso de primeira ordem, cuja constante de tempo é $T_m$.
+
+\begin{figure}[!hbt]
+	% Center the figure.
+	\begin{center}
+		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
+		\includegraphics[width=\columnwidth]{figuras/Diagram_Blocos_Eixo_Direto_Quadratura.PNG}
+		% Create a subtitle for the figure.
+		\caption{Diagrama de blocos para controle das correntes de eixo direto e quadratura. Fonte: \cite{TeseProfAlex}}
+		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
+		\label{fig:Diagrama_blocos_eixo_dir_quadr}
+	\end{center}
+\end{figure}
+
 
 \section{Aquisição e Condicionamento de Sinais de Corrente e Tensão}
 
