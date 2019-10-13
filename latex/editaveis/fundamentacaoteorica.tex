@@ -158,7 +158,7 @@ As referências finais para as malhas de controle de corrente, representadas pel
 
 \section{Sistema de Medição e Transformação de Grandezas}
 
-É necessário ainda comentar sobre o mecanismo de transformação das grandezas medidas necessárias para a estratégia de controle, que podem ser visualizadas na Fig. \ref{fig:Estrategia_Grandezas}. Destaca-se o uso da Transformada de Park para o cálculo da potência instantânea, a qual é calculada a partir das variáveis de eixo direto e de eixo em quadratura.
+É necessário ainda comentar sobre o mecanismo de transformação das grandezas medidas necessárias para a estratégia de controle, que podem ser visualizadas na Fig. \ref{fig:Estrategia_Grandezas}. Destaca-se o uso da Transformada de Park para o cálculo da potência instantânea, a qual é calculada a partir das variáveis de eixo direto e de eixo em quadratura, conforme definem \cite{book-remusteodorescu201b1} e \cite{book-hirofumiakagi2007}.
 
 \begin{figure}[!hbt]
 	% Center the figure.
@@ -238,11 +238,23 @@ O DSOGI-FLL é uma metodologia que cumpre os requisitos de sincronismo com a red
 
 Os aspectos da modelagem matemática desta estrutura e sua respectiva análise de desempenho fogem do escopo e não serão apresentados neste trabalho, porém podem ser verificados com detalhes nos trabalhos de \cite{ArticleRodriguez} e \cite{book-remusteodorescu201b1}.
 
+\section{Estratégia de Chaveamento}
 
-\section{Modulação por Largura de Pulso - PWM}
+Haja vista que a malha de controle da unidade inversora é responsável pela sintetização das tensões $e_d$ e $e_q$, é necessário, posteriormente, realizar a transformação vetorial inversa, da qual se obtêm as tensões trifásicas de referência $e_a$, $e_b$ e $e_c$, a serem sintetizadas nos terminais de saída do equipamento. Estas variáveis constituem a entrada de uma estratégia de geração de pulsos chamada de modulação por largura de pulso senoidal, ou \textit{Sinusoidal Pulse Width Modulation} - SPWM, que realiza o acionamento das chaves semicondutoras da unidade de inversão \cite{MRashid}. A Fig. \ref{fig:Estrategia_Chaveamento} apresenta o procedimento. 
 
+\begin{figure}[!hbt]
+	% Center the figure.
+	\begin{center}
+		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
+		\includegraphics[width=\columnwidth]{figuras/Estrategia_Chaveamento.PNG}
+		% Create a subtitle for the figure.
+		\caption{Estratégia de Chaveamento Utilizada. Fonte: Autor.}
+		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
+		\label{fig:Estrategia_Chaveamento}
+	\end{center}
+\end{figure}
 
-\subsection{Modulação por Largura de Pulso Senoidal - SPWM}
+Destaca-se ainda a inclusão de atrasos nos pulsos de chaveamento, denominado de tempo morto. O objetivo desta ação é evitar que o barramento CC se submeta a um curto-circuito, quando da operação do inversor. Observa-se que esta operação prova um comportamento anormal do inversor, com o aparecimento de componentes harmônicas indesejáveis \cite{DissertacaoLeandro}. 
 
 
 \section{Aquisição e Condicionamento de Sinais de Corrente e Tensão}
