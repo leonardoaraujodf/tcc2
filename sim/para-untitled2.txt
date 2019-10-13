@@ -1,0 +1,9 @@
+L_filt = 0.75m
+C_filt = 11.4u
+C_inv = 1880u
+Vp = 311
+L1 = 2.3m
+C1 = 640u
+C2 = 470u
+I_ref = 10
+T_START =1.0
