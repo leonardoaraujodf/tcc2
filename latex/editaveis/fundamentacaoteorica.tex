@@ -254,7 +254,7 @@ Haja vista que a malha de controle da unidade inversora é responsável pela sin
 	\end{center}
 \end{figure}
 
-Destaca-se ainda a inclusão de atrasos nos pulsos de chaveamento, denominado de tempo morto. O objetivo desta ação é evitar que o barramento CC se submeta a um curto-circuito, quando da operação do inversor. Observa-se que esta operação prova um comportamento anormal do inversor, com o aparecimento de componentes harmônicas indesejáveis \cite{DissertacaoLeandro}. 
+Destaca-se ainda a inclusão de atrasos nos pulsos de chaveamento a qual é denominado de tempo morto. O objetivo desta ação é evitar que o barramento CC se submeta a um curto-circuito, quando da operação do inversor. Apesar disto, esta operação ocasiona um comportamento anormal no inversor, com o aparecimento de componentes harmônicas indesejáveis \cite{DissertacaoLeandro}. 
 
 \section{Controladores da Unidade Inversora}
 
@@ -276,7 +276,7 @@ Estabelecida a estratégia de controle a ser utilizada, deve-se agora determinar
 	\frac{I_2}{E} = \frac{R_cC_fs + 1}{L_1L_2C_fs^3 + R_cC_f(L_1 + L_2)s^2 + (L_1 + L_2)s}
 \end{align}
 
-Ao se visualizar o comportamento do filtro LCL através de um diagrama de Bode, conforme apresentando na Fig. \ref{fig:Diagrama_Bode_LCL}, verifica-se que a resposta deste em baixa frequência é a mesma para uma configuração em que não se considera o capacitor. Tendo em vista que o filtro LCL se destinar a atenuar as componentes harmônicas de alta frequência, as quais se encontram nas vizinhanças da frequência de chaveamento, sua modelagem, para fins de determinação dos ganhos dos controladores de corrente em frequência fundamental pode desconsiderar a influência deste capacitor \cite{TeseProfAlex}.
+Ao se visualizar o comportamento do filtro LCL através de um diagrama de Bode, conforme apresentando na Fig. \ref{fig:Diagrama_Bode_LCL}, verifica-se que a resposta deste em baixa frequência é a mesma para uma configuração em que não se considera o capacitor $C_f$. Tendo em vista que o filtro LCL se destinar a atenuar as componentes harmônicas de alta frequência, as quais se encontram nas vizinhanças da frequência de chaveamento, sua modelagem, para fins de determinação dos ganhos dos controladores de corrente em frequência fundamental pode desconsiderar a influência deste capacitor \cite{TeseProfAlex}.
 
 \begin{figure}[!hbt]
 	% Center the figure.
@@ -310,21 +310,21 @@ Desta forma, a relação entre a tensão da unidade inversora e do filtro LCL po
 	\end{bmatrix}
 \end{align}
 
-Pelo fato de o controle da unidade inversora ser embasado em componentes \textit{dq}, é necessário converter a equação \ref{eq:relacao_saida_lcl} para obtenção dos componentes de eixo direto e em quadratura. Mais detalhamento sobre este procedimento, denominado teoria do controle vetorial, pode ser obtido em \cite{book-remusteodorescu201b1}. Aplicando as transformações necessárias, obtêm-se as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq}, que expressam, no sistema \textit{dq}, o balanço das tensões na saída do inversor, onde $v_d$ e $v_q$ são, respectivamente, as tensões de eixo direto e de eixo em quadratura na saída do filtro LCL, $e_q$ e $e_d$ são, respectivamente, as tensões de eixo direto e de eixo em quadratura produzidas pela unidade inversora, $i_d$ e $i_q$ são as correntes de eixo direto e de eixo em quadratura que circulam através do filtro e $\omega$ é a frequência angular da rede elétrica.
+Pelo fato de o controle da unidade inversora ser embasado em componentes \textit{dq}, é necessário converter a Eq. \ref{eq:relacao_saida_lcl} para obtenção dos componentes de eixo direto e em quadratura. Mais detalhamento sobre este procedimento, denominado teoria do controle vetorial, pode ser obtido em \cite{book-remusteodorescu201b1}. Aplicando as transformações necessárias, obtêm-se as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq}, que expressam, no sistema \textit{dq}, o balanço das tensões na saída do inversor, onde $v_d$ e $v_q$ são, respectivamente, as tensões de eixo direto e de eixo em quadratura na saída do filtro LCL, $e_q$ e $e_d$ são, respectivamente, as tensões de eixo direto e de eixo em quadratura produzidas pela unidade inversora, $i_d$ e $i_q$ são as correntes de eixo direto e de eixo em quadratura que circulam através do filtro e $\omega$ é a frequência angular da rede elétrica.
 
 \begin{align}
 	v_d = e_q - R_fi_d - L_f \frac{di_d}{dt} + \omega L_fi_q\label{eq:tensao_vd}\\
 	v_q = e_q - R_fi_q - L_f\frac{di_q}{dt} + \omega L_fi_d\label{eq:tensao_vq}
 \end{align}
 
-Ainda fundamentado na teoria vetorial, a potência instantânea entregue pelo inversor à rede elétrica pode ser expressa pelas Eqs. \ref{eq:potencia_instantanea1} e \ref{eq:potencia_instantanea2}. 
+Ainda respaldado pela teoria vetorial, a potência instantânea entregue pelo inversor à rede elétrica pode ser expressa pelas Eqs. \ref{eq:potencia_instantanea1} e \ref{eq:potencia_instantanea2}. 
 
 \begin{align}
 	p = \frac{3}{2}(v_di_d + v_qi_q)\label{eq:potencia_instantanea1}\\
 	q = \frac{3}{2}(v_di_q - v_qi_d)\label{eq:potencia_instantanea2}
 \end{align}
 
-Destaca-se que as componentes $V_d$ e $V_q$ assumem os valores definidos nas Eqs. \ref{eq:tensao_vd_real} e \ref{eq:tensao_vq_real}, assumindo que as tensões no ponto de acoplamento da unidade eólica são tomadas como referência para a transformação vetorial e estando o eixo direto em fase com o vetor tensão da rede elétrica, onde $|V|$ assume o módulo da tensão no PAC \cite{TeseProfAlex}. 
+Destaca-se que as componentes $v_d$ e $v_q$ assumem os valores definidos nas Eqs. \ref{eq:tensao_vd_real} e \ref{eq:tensao_vq_real}, assumindo que as tensões no ponto de acoplamento da unidade eólica são tomadas como referência para a transformação vetorial e estando o eixo direto em fase com o vetor tensão da rede elétrica, onde $|V|$ assume o módulo da tensão no PAC \cite{TeseProfAlex}. 
 
 \begin{align}
 	v_d = |V|\label{eq:tensao_vd_real}\\
@@ -338,14 +338,14 @@ Do apresentado acima, as potências instantâneas ativa e reativa podem ser expr
 	q = \frac{3}{2}|V|i_q\label{eq:potencia_instantanea22}
 \end{align}
 
-Aplicando a transformada de Laplace sobre as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} obtêm-se as funções de transferência referentes à saída do inversor representadas pelas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace}, que destinam-se, respectivamente, a determinação das correntes de eixo direto e eixo em quadratura em função da tensão gerada pelo conversor. Ressalta-se que os termos existentes nas Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} que não constam nas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace} são inseridos na estrutura de controle como parcelas do tipo \textit{feedforward}.
+Aplicando a transformada de Laplace sobre as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} obtêm-se as funções de transferência referentes à saída do inversor representadas pelas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace}, que destinam-se, respectivamente, a determinação das correntes de eixo direto e eixo em quadratura em função da tensão gerada pelo conversor. Observa-se que os termos existentes nas Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} que não constam nas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace} são inseridos na estrutura de controle como parcelas do tipo \textit{feedforward}.
 
 \begin{align}
 	\frac{I_d}{E_d} = \frac{1}{sL_f + R_f}\label{eq:corrente_dire_laplace}\\
 	\frac{I_q}{E_q} = \frac{1}{sL_f + R_f}\label{eq:corrente_quad_laplace}
 \end{align}
 
-As expressões anteriores viabilizam a implementação de duas malhas de controle independentes, e estas tem por objetivo o ajuste das correntes de eixo direto e eixo em quadratura, em torno de um valor de referência. Esta consideração permite a construção do diagrama de blocos apresentado na Fig. \ref{fig:Diagrama_blocos_eixo_dir_quadr}, o qual pode ser utilizado para a determinação das grandezas $k_3$ e $T_3$ do controlador PI utilizado no sistema. Destaca-se que a modelagem do efeito do conversor, no que tangue à dinâmica de chaveamento, é incluído por meio de um ganho unitário. Além disto, o sistema de medição é representado através de um atraso de primeira ordem, cuja constante de tempo é $T_m$.
+As expressões obtidas até aqui permitem que se possa implementar duas malhas de controle que são independentes, e cada um destas tem por objetivo ajustar as correntes de eixo direto e eixo em quadratura, tomando como base o valor de referência para ambas. Esta consideração permite a construção do diagrama de blocos apresentado na Fig. \ref{fig:Diagrama_blocos_eixo_dir_quadr}, o qual auxilia na determinação das grandezas $k_3$ e $T_3$ do controlador PI utilizado no sistema. Acrescenta-se que o efeito do conversor, relacionado a dinâmica de chaveamento, é incluído através de um ganho unitário. Além disto, o sistema de medição é representado através de um atraso de primeira ordem, cuja constante de tempo é $T_m$.
 
 \begin{figure}[!hbt]
 	% Center the figure.
@@ -359,10 +359,58 @@ As expressões anteriores viabilizam a implementação de duas malhas de control
 	\end{center}
 \end{figure}
 
+Para sintonização do controlador PI apresentado na Fig. \ref{fig:Diagrama_blocos_eixo_dir_quadr} utiliza-se a metodologia conhecida como "Módulo Ótimo", bem descrito em \cite{ArticleRezek}. As Eqs. \ref{eq:Const_Tempo_Pi} e \ref{eq:Ganho_pi} apresentam os resultados finais para o projeto do controlador.
+
+\begin{align}
+	T_3 = \frac{L_f}{R_f}\label{eq:Const_Tempo_Pi}\\
+	k_3 = \frac{L_f}{2T_m}\label{eq:Ganho_pi}
+\end{align}
+
+Ao se definir o procedimento de controle das correntes produzidas pelo inversor, utiliza-se a metologia de \textbf{Controle em Cascata} para as malhas de controle externas. Estas últimas se destinam à regulação da tensão do elo de corrente contínua e ao fornecimento de potência reativa e produzem as referências de corrente de eixo direto e em quadratura.
+
+Obtêm-se a partir do balanço de potências no capacitor do barramento de corrente contínua a função de transferência definida na Eq. \ref{eq:funcao_transf_barramento_cc}, que relaciona a corrente de eixo direto com a tensão no ponto em questão.
+
+\begin{align}\label{eq:funcao_transf_barramento_cc}
+	\frac{V_{cc}}{I_d} = \frac{1}{sC}
+\end{align}
+
+Desta forma, obtêm-se o diagrama de blocos mostrado na Fig. \ref{fig:Diagrama_blocos_malha_externa} que possibilita a determinação dos parâmetros $k_4$ e $T_4$ do controlador PI. Semelhantemente, a Fig. \ref{fig:Diagrama_blocos_malha_externa_reativa} apresenta o diagrama de blocos referente à malha de controle de potência reativa.
+
+\begin{figure}[!hbt]
+	% Center the figure.
+	\begin{center}
+		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
+		\includegraphics[width=\columnwidth]{figuras/Diagram_Blocos_Malha_Externa.PNG}
+		% Create a subtitle for the figure.
+		\caption{Diagrama de blocos para controle da tensão do elo de corrente contínua. Fonte: \cite{TeseProfAlex}}
+		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
+		\label{fig:Diagrama_blocos_malha_externa}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!hbt]
+	% Center the figure.
+	\begin{center}
+		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
+		\includegraphics[width=\columnwidth]{figuras/Diagram_Blocos_Malha_Externa_Reativa.PNG}
+		% Create a subtitle for the figure.
+		\caption{Diagrama de blocos para controle do fluxo de potência reativa. Fonte: \cite{TeseProfAlex}}
+		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
+		\label{fig:Diagrama_blocos_malha_externa_reativa}
+	\end{center}
+\end{figure}
+
+Baseado na metologia conhecida como "Ótimo Simétrico", bem definida por \cite{ArticleRezek}, realiza-se a sintonia do controlador PI da malha de corrente contínua e de seus parâmetros de controle e obtêm-se as Eqs. \ref{eq:constante_tempo_malha_externa} e \ref{eq:ganho_malha_externa}. Já para a sintonia do controlador PI projetado para regular o fluxo de potência reativa do sistema, deve-se assumir que a tensão na rede elétrica esteja em seu valor nominal, ou seja, $|V|$ = 1 p.u. Assim sendo, a partir da metodologia de alocação de polos, obtêm-se os parâmetros deste elemento, sendo que a constante de tempo $T_5$ e o ganho $k_5$ são escolhidos de forma que o sistema não possua uma ultrapassagem máxima de 5\% para uma entrada degrau.
+
+\begin{align}
+	T_4 = 8T_m\label{eq:constante_tempo_malha_externa}\\
+	k_4 = \frac{C}{4T_m}\label{eq:ganho_malha_externa}
+\end{align}
+
 
 \section{Aquisição e Condicionamento de Sinais de Corrente e Tensão}
 
-A etapa de aquisição e condicionamento de sinais destina-se à obtenção de tensões e correntes no ponto de conexão do inversor, e tem o objetivo entregar os parâmetros necessários para o algoritmo de controle realizado no microcontrolador. 
+A etapa de aquisição e condicionamento de sinais destina-se à obtenção de tensões e correntes no ponto de conexão do inversor, e tem como objetivo entregar os parâmetros necessários para o algoritmo de controle realizado no microcontrolador. 
 
 O sistema de aquisição e condicionamento de sinais é constituído pelos seguintes componentes:
 
@@ -372,7 +420,9 @@ O sistema de aquisição e condicionamento de sinais é constituído pelos segui
 	\item Circuitos de tratamento de sinal (somadores e reguladores de tensão)
 \end{itemize}
 
-\subsection{Transdutor de Tensão}
+\subsection{Transdutores de Tensão e de Corrente}
+
+
 
 \subsection{Filtro Anti-Aliasing}
 
