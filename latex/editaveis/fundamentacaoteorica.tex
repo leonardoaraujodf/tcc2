@@ -408,26 +408,68 @@ Baseado na metologia conhecida como "Ótimo Simétrico", bem definida por \cite{
 \end{align}
 
 
-\section{Aquisição e Condicionamento de Sinais de Corrente e Tensão}
+\section{Aquisição e Condicionamento de Sinais}
 
-A etapa de aquisição e condicionamento de sinais destina-se à obtenção de tensões e correntes no ponto de conexão do inversor, e tem como objetivo entregar os parâmetros necessários para o algoritmo de controle realizado no microcontrolador. 
+A etapa de aquisição e condicionamento de sinais destina-se à correta obtenção das tensões e correntes no ponto de acomplamento do inversor com a rede elétrica, e tem como objetivo entregar os parâmetros necessários para a realização do algoritmo de controle implementado no microcontrolador.
+Desta forma, é nececessário monitorar três sinais de tensão e três sinais de corrente, e também o valor de tensão no barramento CC.
+Os procedimentos realizados nesta etapa são:
+\begin{enumerate}
+	\item Adaptação e isolação elétrica dos sinais medidos através de níveis de tensão seguros para a etapa de amostragem;
+	\item Filtragem dos sinais obtidos de forma a obter os componentes em frequência desejados para o algoritmo de controle;
+	\item Ajuste dos níveis de tensão dos sinais obtidos para os limites de tensão impostos pelo ADC do microcontrolador.
+\end{enumerate}
 
-O sistema de aquisição e condicionamento de sinais é constituído pelos seguintes componentes:
+O sistema de aquisição e condicionamento de sinais é constituído por:
 
 \begin{itemize}
-	\item Sensores de tensão e corrente;
-	\item Filtros \textit{anti-aliasing};
-	\item Circuitos de tratamento de sinal (somadores e reguladores de tensão)
+	\item Transdutores de tensão e corrente;
+	\item Filtros \textit{anti-aliasing}, somadores e reguladores de tensão.
 \end{itemize}
 
 \subsection{Transdutores de Tensão e de Corrente}
 
+Para a leitura dos sinais de tensão da rede é utilizado o transdutor de efeito Hall LV-20P mostrado na Fig. \ref{fig:transdutor_tensao}. 
 
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{figuras/Transdutor_Tensao.jpg}
+		\caption{Vista frontal do trandutor}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{figuras/Transdutor_Tensao_Circuito.jpg}
+		\caption{Circuito do transdutor}
+	\end{subfigure}
+	\caption{Transdutor de tensão LV-20P}\label{fig:transdutor_tensao}
+\end{figure}
 
-\subsection{Filtro Anti-Aliasing}
+Já para a adaptação dos sinais de corrente é utilizado o transdutor de efeito Hall LV-55P mostrado na Fig. \ref{fig:transdutor_corrente}.
 
-	Uma vez realizada a aquisição dos sinais de interesse, estes devem estar adequados para que sua manipulação por meio do microcontrolador seja possível. A rede elétrica possui diversos ruídos e transitórios eletromagnéticos de alta frequência que podem interferir no sinal de interesse (COLOCAR REFERÊNCIA), de modo que é necessário realizar uma filtragem analógica destas harmônicas indesejáveis anteriores ao microcontrolador.
-	
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{figuras/Transdutor_Corrente.jpg}
+		\caption{Vista frontal do trandutor}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth]{figuras/Transdutor_Corrente_Circuito.jpg}
+		\caption{Circuito do transdutor}
+	\end{subfigure}
+	\caption{Transdutor de corrente LV-55P}\label{fig:transdutor_corrente}
+\end{figure}
+
+\subsection{Filtro \textit{Anti-Aliasing}}
+
+	Uma vez realizada a aquisição dos sinais de interesse através dos transdutores, estes devem estar adequados para que sua manipulação por meio do microcontrolador seja possível.
+	Estes sinais podem conter ruídos e transitórios eletromagnéticos inerentes à rede elétrica que são indesejáveis e tendem a provocar o denominado efeito \textit{aliasing}, que causa a sobreposição do espectro e distorções dos sinais analógicos amostrados.
+	A obtenção dos sinais relevantes para este trabalho é realizada à uma frequência de amostragem $f_s$ de 10 kHz. O teorema de Nyquist define que para que o sinal analógico de interesse possa ser amostrado corretamente, a frequência $f_{max}$ deste deve ser menor ou igual à metade da frequência de amostragem, conforme a Eq. \ref{eq:freq_sinal} \cite{alanoppenheim2009}.
+
+	\begin{align}
+		f_{max} = \frac{f_s}{2}\label{eq:freq_sinal}
+	\end{align}
+
 	Desta forma, é utilizado na placa de aquisições um filtro \textit{butterworth} passa-baixas de 1ª ordem, com frequência de corte de 234 Hz. A topologia deste filtro é apresentada na Figura \ref{fig:filtro-butter}.
 	
 \begin{figure}[!hbt]
