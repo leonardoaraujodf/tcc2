@@ -1,12 +1,105 @@
 \chapter{Metodologia}
 
-\section{Conjunto Inversor Trifásico}
+\section{Considerações Iniciais}
 
-A unidade de potência do inversor utilizado denomina-se SPCIT 1000-80-20, conforme pode ser visualizado na Fig. .
+Este capítulo visa apresentar a estrutura laboratorial concebida com fins de atingir os requisitos experimentais estabelecidos para validação da unidade eólica.
+Os objetivos principais são:
+\begin{itemize}
+	\item Descrição do arranjo laboratorial;
+	\item Ajuste da controladores das malhas interna e externa e do método de sincronização. 
+\end{itemize}
 
+\section{Estrutura Laboratorial}
 
+A Fig. \ref{fig:bancada-eolica} apresenta a estrutura utilizada no protótipo. Esta estrutura é levemente similar a estruturas eólicas comerciais e oferecerá recursos para análise de sistemas eólicos mais complexos.
 
-\section{Microcontrolador}
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[scale=0.16]{figuras/Estrutura_Laboratorial.png}
+    \caption{Composição da Bancada Eólica}
+    \label{fig:bancada-eolica}
+    \end{center}
+\end{figure}
+
+Conforme pode-se visualizar na Fig. \ref{fig:bancada-eolica}, o protótipo é constituído pelas unidades de potência e unidades de controle. 
+
+A unidades de potência são o inversor trifásico, o filtro de acomplamento, o conversor \textit{boost}, o retificador monofásico e a própria rede elétrica. 
+O conversor \textit{boost}, junto com retificador e a rede elétrica, simulam o fornecimento de potência ativa pela turbina eólica através do retificador trifásico.
+A unidade de potência tem como objetivo principal a transferência de potência ativa entre o gerador síncrono, que seria a turbina éolica, e a rede elétrica.
+
+As unidades de controle são compostas pelos transdutores de tensão e de corrente, placas de condicionamento de sinais, microcontrolador, computador e adaptadores de tensão. 
+O objetivo principal das unidades de controle é o monitoramento de tensões e correntes no ponto de conexão do inversor com a rede elétrica de forma a fornecer as entradas para as iterações do algoritmo de controle.
+
+\section{Unidades de Potência}
+
+\subsection{Conjunto Inversor Trifásico}
+
+A unidade de potência do inversor utilizado denomina-se SPCIT 1000-80-20. Esta, em conjunto com a unidade de controle, compõem a unidade inversora proposta, como pode ser visualizado na Fig. \ref{fig:conjunto-inversor}.
+Suas principais características são:
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[scale=0.3]{figuras/conjunto_inversor_trifasico.jpg}
+    \caption{Conjunto Inversor Trifásico SPCIT 1000-80-20. Fonte: Supplier}
+    \label{fig:conjunto-inversor}
+    \end{center}
+\end{figure}
+
+\begin{itemize}
+	\item Inversor trifásico de três braços na topologia meia-ponte;
+	\item Braços compostos por IGBTs do tipo LUH100G1201, conforme a Fig. \ref{fig:igbt-LUH100G1201}, equipado com \textit{gate drivers} DRO100D25A, conforme a Fig. \ref{fig:driver-DRO100D25A}.
+	\item Tensão máxima de barramento: 800 $V_{CC}$ + 10 \%;
+	\item Frequência máxima de chaveamento: 20 kHz;
+	\item Potência Nominal: 10 kVA:
+	\item Tensão de saída: 0 - 380 $V_{RMS(F-F)}$;
+	\item Frequência de saída: 30 - 150 Hz;
+	\item Corrente máxima de saída: 15,2 A para 380 $V_{F-F}$, tensão de barramento em 800 V, frequência de chaveamento 10 kHz;
+	\item Ventilador ASA 12038DV-HB e termostato para proteção térmica.
+	
+\end{itemize}
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[scale=0.3]{figuras/LUH100G1201.png}
+    \caption{IGBT LUH100G1201}
+    \label{fig:igbt-LUH100G1201}
+    \end{center}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[scale=0.3]{figuras/driver_DRO100D25A.png}
+    \caption{\textit{Gate driver} DRO100D25A. Fonte: Supplier}
+    \label{fig:driver-DRO100D25A}
+    \end{center}
+\end{figure}
+
+Ressalta-se que os \textit{gate drivers} possuem dois canais independentes para controle das chaves, isolação óptica, proteção contra curto-circuito através do monitoramento de $V_{ce}$, intertravamento (\textit{interlock}) com configuração de tempo morto e proteção contra subtensão na alimentação do secundário.
+A tensão de acionamento dos \textit{drivers} é 15 V, sendo necessário uma interface entre a tensão de saída do microcontrolador de 3,3 V para a entrada de 15 V.
+
+\subsection{Filtro LCL}
+
+\subsection{Conversor \textit{Boost}}
+
+\section{Aquisição e Condicionamento de Sinais}
+
+A etapa de aquisição e condicionamento de sinais destina-se à correta obtenção das tensões e correntes no ponto de acomplamento do inversor com a rede elétrica, e tem como objetivo entregar os parâmetros necessários para a realização do algoritmo de controle implementado no microcontrolador.
+Desta forma, é nececessário monitorar três sinais de tensão e três sinais de corrente, e também o valor de tensão no barramento CC.
+Os procedimentos realizados nesta etapa são:
+\begin{enumerate}
+	\item Adaptação e isolação elétrica dos sinais medidos através de níveis de tensão seguros para a etapa de amostragem;
+	\item Filtragem dos sinais obtidos de forma a obter os componentes em frequência desejados para o algoritmo de controle;
+	\item Ajuste dos níveis de tensão dos sinais obtidos para os limites de tensão impostos pelo ADC do microcontrolador.
+\end{enumerate}
+
+O sistema de aquisição e condicionamento de sinais é constituído por:
+
+\begin{itemize}
+	\item Transdutores de tensão e corrente;
+	\item Filtros \textit{anti-aliasing}, somadores e reguladores de tensão.
+\end{itemize}
+
+\subsection{Microcontrolador}
 
 No presente trabalho optou-se pela utilização do modelo TMS320F28335 da Texas Instruments, que pode ser visualizado na Fig. \ref{fig:dsp}.
 Este microcontrolador é comumente utilizado em aplicações envolvendo controle industrial de motores, inversores fotovoltaicos e eletrônica de potência \cite{texasinstruments:tms320f28335}.
@@ -26,24 +119,6 @@ Algumas características interessantes deste microcontrolador são:
     \item Memória RAM: 68 kB;
     \item Memória FLASH: 512 kB;
     \item ADC de 12 bits com 16 canais.
-\end{itemize}
-
-\section{Aquisição e Condicionamento de Sinais}
-
-A etapa de aquisição e condicionamento de sinais destina-se à correta obtenção das tensões e correntes no ponto de acomplamento do inversor com a rede elétrica, e tem como objetivo entregar os parâmetros necessários para a realização do algoritmo de controle implementado no microcontrolador.
-Desta forma, é nececessário monitorar três sinais de tensão e três sinais de corrente, e também o valor de tensão no barramento CC.
-Os procedimentos realizados nesta etapa são:
-\begin{enumerate}
-	\item Adaptação e isolação elétrica dos sinais medidos através de níveis de tensão seguros para a etapa de amostragem;
-	\item Filtragem dos sinais obtidos de forma a obter os componentes em frequência desejados para o algoritmo de controle;
-	\item Ajuste dos níveis de tensão dos sinais obtidos para os limites de tensão impostos pelo ADC do microcontrolador.
-\end{enumerate}
-
-O sistema de aquisição e condicionamento de sinais é constituído por:
-
-\begin{itemize}
-	\item Transdutores de tensão e corrente;
-	\item Filtros \textit{anti-aliasing}, somadores e reguladores de tensão.
 \end{itemize}
 
 \subsection{Transdutores de Tensão e de Corrente}
@@ -96,7 +171,7 @@ Já para a adaptação dos sinais de corrente é utilizado o transdutor de efeit
          % Center the figure.
          \begin{center}
          % Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
-         \includegraphics[scale=0.7]{figuras/filtro-butter.JPG}
+         \includegraphics[scale=0.25]{figuras/Filtro_butter.png}
          % Create a subtitle for the figure.
          \caption{Topologia do filtro de Butterworth de primeira ordem utilizado na placa de condicionamento de sinais}
          % Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
@@ -124,7 +199,7 @@ A topologia escolhida foi a de \textbf{somador não-inversor}, pois esta não al
 	% Center the figure.
 	\begin{center}
 		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
-		\includegraphics[scale=0.7]{figuras/somador-ninversor.JPG}
+		\includegraphics[scale=0.25]{figuras/Somador_Nao-Inversor.png}
 		% Create a subtitle for the figure.
 		\caption{Circuito somador não-inversor}
 		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
@@ -132,7 +207,7 @@ A topologia escolhida foi a de \textbf{somador não-inversor}, pois esta não al
 	\end{center}
 \end{figure}
 
-\subsubsection{Circuito de fornecimento de tensão CC}
+\subsection{Circuito de fornecimento de tensão CC}
 
 Um outro circuito, anterior ao somador não-inversor, é utilizado para fornecer a tensão CC regulável ao somador.
 A Fig. \ref{fig:divisor-tensao} mostra a topologia do circuito. A resistência variável conectada ao amplificador operacional permite o ajuste fino do divisor de tensão.
@@ -141,7 +216,7 @@ A Fig. \ref{fig:divisor-tensao} mostra a topologia do circuito. A resistência v
 	% Center the figure.
 	\begin{center}
 		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
-		\includegraphics[scale=0.7]{figuras/divisor-tensao.JPG}
+		\includegraphics[scale=0.25]{figuras/divisor-tensao.png}
 		% Create a subtitle for the figure.
 		\caption{Divisor de tensão com resistência variável}
 		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
