@@ -2,9 +2,81 @@
 
 \partanexos
 
-\chapter{Primeiro Anexo}
+\chapter{Código em Python para o projeto do filtro LCL}\label{codigo-python-filtro}
 
-Texto do primeiro anexo.
+\begin{lstlisting}[language=Python]
+    import numpy as np 
+    import matplotlib.pyplot as plot
+
+    # tensao da rede
+    Vn = 220
+    # potencia da rede
+    Pn = 3000
+    # frequencia da rede
+    fn = 60
+    # frequencia de chaveamento
+    fsw = 5000
+    # impedancia de base
+    Zb = (Vn*Vn)/Pn
+    
+    # capacitancia de base
+    Cb = 1/(2*np.pi*fn*Zb)
+    print("Zb: %lf" %Zb)
+    print("Cb: %lf" %Cb)
+    
+    # porcentagem de ripple de corrente - 10 %
+    ripple_i = 0.10
+    
+    # maximo ripple de corrente
+    i_lmax = ripple_i*(Pn*np.sqrt(2))/Vn
+    print("I_L_max: %lf A" %i_lmax)
+    
+    # indutor do lado do inversor
+    L1 = Vn/(2*np.sqrt(6)*fsw*i_lmax)
+    print("L1: %lf mH" %(L1*1e3))
+    
+    # capacitancia do filtro
+    Cf = 0.05*Cb
+    print("Cf: %lf uF" %(Cf*1e6))
+    
+    # ripple de corrente
+    ka = 0.2
+    a = L1*Cb*(2*np.pi*fsw)**2
+    print("a: %lf" %a)
+
+    r = np.arange(0.05,1,0.001)
+    ka = 1/(np.absolute(1+r*(1-a*0.05)))
+    plot.plot(r,ka)
+    plot.xlabel("Fator r")
+    plot.ylabel("Atenuacao Ka (%)")
+    plot.scatter(0.164,0.2,s=100,color='r')
+    plot.axhline(y=0.2,xmin=0,xmax=0.16400,color='g')
+    plot.axvline(x=0.164,ymin=0,ymax=0.200,color='g')
+    plot.savefig('plot.png')
+
+    r = 0.05
+    ka =  1/(np.absolute(1+r*(1-a*0.05)))
+    while( ka > 0.2):
+    r = r + 0.001
+    ka =  1/(np.absolute(1+r*(1-a*0.05)))
+
+    print("r: %lf" %r)
+    # indutor do lado da rede
+    L2 = r*L1
+    print("L2: %lf mH" %(L2*1e3))
+    
+    # frequencia de ressonancia
+    w_res = np.sqrt((L1+L2)/(L1*L2*Cf))
+    f_res = w_res/(2*np.pi)
+    print("10*fn: %lf" %(10*fn))
+    print("f_res: %lf" %(f_res))
+    print("f_sw/2: %lf" %(fsw/2))
+    
+    # resistencia de amortecimento
+    Rf = 1/(3*w_res*Cf)
+    print("Rf: %lf" %(Rf))
+
+\end{lstlisting}
 
 \chapter{Segundo Anexo}
 

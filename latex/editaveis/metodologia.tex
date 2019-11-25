@@ -79,6 +79,49 @@ A tensão de acionamento dos \textit{drivers} é 15 V, sendo necessário uma int
 
 \subsection{Filtro LCL}
 
+Com base nas equações definidas na Seção \ref{filtro-lcl} e com os parâmetros de projeto definidos na Tabela \ref{tab:parametros-inversor}, é possível calcular os parâmetros do filtro LCL a ser utilizado no protótipo.
+O Anexo \ref{codigo-python-filtro} apresenta um programa em Python que auxilia nos cálculos dos componentes do filtro LCL baseado nos requisitos de projeto apresentados.
+
+A Tabela \ref{tab:resultados-filtro-lcl} apresenta os resultados obtidos para o filtro LCL.
+
+\begin{table}[h]
+	\centering
+	\caption{Parâmetros Nominais do Inversor}
+	\label{tab:parametros-inversor}
+	
+	\begin{tabular}{cc}
+		\toprule
+		\textbf{Parâmetro} & \textbf{Unidade Equivalente} \\
+		\midrule
+		Potência Nominal do Inversor (cada braço) & 3 kW \\
+		Tensao do Barramento & 700 V \\
+		Tensao Nominal CA ($E_n$) & 220 V \\
+		Máxima Variação do Fator de Potência ($x$) & 0,05 \\
+		Frequência de Chaveamento ($f_{sw}$) & 5000 Hz \\
+		Frequência da Rede ($f_n$) & 60 Hz \\
+		Ondulação Máxima da Corrente de Saída ($i_{L-max}$) &  10 \% \\
+		Ondulação Máxima da Tensão do Barramento CC & 2 \% \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\caption{Resultados para o filtro LCL}
+	\label{tab:resultados-filtro-lcl}
+	
+	\begin{tabular}{cc}
+		\toprule
+		\textbf{Resultados} & \textbf{Unidade Equivalente} \\
+		\midrule
+		Indutor do lado do conversor ($L_1$) & 4,66 mH \\
+		Indutor do lado da rede ($L_2$) & 0,76 mH \\
+		Capacitor ($C_f$) & 8,22 $\mu$F \\
+		Resistor de Amortecimento ($R_f$) & 3 $\Omega$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 \subsection{Conversor \textit{Boost}}
 
 \section{Aquisição e Condicionamento de Sinais}
