@@ -22,25 +22,28 @@ A Fig. \ref{fig:sim-circuito-inversor-boost} mostra o circuito utilizado.
 \end{figure}
 
 A tensão de referência definida para o barramento CC foi de 700 V. Desta forma, esperou-se que, apesar das pertubações a serem inseridas no sistema, este conseguisse estabilizar a tensão do barramento CC pŕoximo a tensão de referência após alguns segundos. 
-Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento CC e permaneceu assim até os 4 segundos. Após, isso iniciou-se a injeção de potência.
-
-O conversor \textit{boost} foi programado para injetar 10 A de corrente contínua constantes a partir de 4,0 segundos do tempo de simulação.
+Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento CC e permaneceu assim até os 4 segundos. Após, isso iniciou-se a injeção de potência através do conversor \textit{boost}, que foi programado para injetar 10 A de corrente.
 
 Pode-se verificar na Fig. \ref{fig:sim-tensao-barramento} a estabilização de tensão no barramento CC. 
 Antes dos 4 segundos, o sistema passou por um transitório mas conseguiu manter a tensão no barramento próximo de 700 V. 
-Após isto, houve a inserção de corrente pelo \textit{boost}, que provocou uma pertubação no barramento, de forma a elevar a tensão sobre o \textit{link} capacitivo do barramento.
-De forma a estabilizar esta tensão, o sistema começou a fornecer potência à rede elétrica de modo a manter a tensão no barramento próximo ao valor de referência.
+Após isto, houve a inserção de corrente pelo \textit{boost}, que provocou uma pertubação, de forma a elevar a tensão sobre o \textit{link} capacitivo do barramento.
+De forma a estabilizar esta tensão, o sistema começou a fornecer potência à rede elétrica de modo a manter a tensão CC próximo a seu valor de referência.
 
 \begin{figure}[!hbt]
 	\begin{center}
     \includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_barramento.PNG}
-    \caption{Tensão no barramento CC. A tensão de referência foi definida como 700 V. Inicialmente este foi inicializado sem nenhuma injeção de potência no barramento, como pode-se verificar antes dos 4 segundos. A partir disso, acontece uma pertubação devido a injeção de potência, porém este consegue se estabilizar próximo a tensão de referência após alguns segundos}
+    \caption{Tensão no barramento CC. A tensão de referência foi definida como 700 V. Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento, como pode-se verificar antes dos 4 segundos. Depois, acontece uma pertubação devido a inserção de potência, mas este estabiliza-se próximo a tensão de referência após alguns segundos}
     \label{fig:sim-tensao-barramento}
     \end{center}
 \end{figure}
 
 A Fig. \ref{fig:sim-tensao-saida-inversor} mostra as tensões sintetizadas na saída do inversor, após o filtro $L_2$.
+Ao se verificar o expectro em frequência da tensão sintetizada na fase $V_A$, é possível ver que existem harmônicas perto da frequência de chaveamento, mas que não produzem alterações significativas na tensão de saída. 
+Verifica-se ainda que houve a sintetização correta das tensões em cada fase.
+
 Já a Fig. \ref{fig:sim-corrente-saida-inversor} mostra as correntes geradas após a inserção de potência pelo \textit{boost} no barramento CC.
+O expectro em frequência da corrente produzida na fase A denominada $I_A$ mostra que existem harmônicas de baixa frequência, de quinta e sétima ordem, mas que não provocam alterações significativas na corrente produzida.
+Ainda é possível verificar o envio correto das três correntes para a rede elétrica.
 
 \begin{figure}[!hbt]
 	\centering
@@ -48,13 +51,13 @@ Já a Fig. \ref{fig:sim-corrente-saida-inversor} mostra as correntes geradas ap�
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_2.PNG}
 		\caption{Tensão de saída sintetizada para a fase A}
-    \end{subfigure}
+   \end{subfigure}
 
-    \begin{subfigure}[b]{\textwidth}
+   \begin{subfigure}[b]{\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_fft.PNG}
 		\caption{Expectro em frequência da tensão sintetizada na fase A. Os harmônicos de alta frequência próximos a frequência de chaveamento de 5 kHz sofreram uma boa atenuação}
-    \end{subfigure}
+   \end{subfigure}
 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_4.PNG}
@@ -85,3 +88,27 @@ Já a Fig. \ref{fig:sim-corrente-saida-inversor} mostra as correntes geradas ap�
     \caption{Análise das corrente de saída após o filtro LCL. Estes resultados foram obtidos após a inserção de corrente pelo conversor \textit{boost} no barramento CC}
     \label{fig:sim-corrente-saida-inversor}
 \end{figure}
+
+Na Fig. \ref{fig:sim-tensao-corrente-boost} pode-se verificar os valores de tensão e de corrente na entrada do conversor \textit{Boost}.
+É possível ver que a tensão na entrada do conversor é aproximadamente 250 V, e a corrente de entrada aproximadamente 10 A, produzindo desta forma uma potência de entrada $P_{in}$ = 2500 W.
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_entrada_boost_2.PNG}
+		\caption{Tensão na entrada do conversor \textit{Boost}. A tensão média na entrada foi de 250 $V_{DC}$}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_entrada_boost_2.PNG}
+		\caption{Corrente medida na entrada do conversor \textit{Boost}. A corrente média foi de 10 A}
+	\end{subfigure}
+
+	\caption{Verificação da tensão e corrente de entrada no conversor \textit{Boost} para cálculo da potência de entrada do sistema}
+    \label{fig:sim-tensao-corrente-boost}
+\end{figure}	
+
+
+\section{Resultados Experimentais}
