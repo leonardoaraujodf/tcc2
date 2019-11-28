@@ -111,7 +111,39 @@ De fato, no final de 2017, a participação das eólicas era de 8,1 \%, saltando
 % Comentar sobre a utilização e projetos de conversores eletrônicos de potência
 % Fazer um parágrafo relacionionando o projeto de conversores eletrônicos com a proposta apresentada no presente trabalho
 
+Nos sistemas de geração de energia eólica, os conversores eletrônicos de potência são predominantemente aplicados para regular a energia flutuante de entrada e maximizar a energia elétrica colhida do vento \cite{Ellabban2014}.
+
+A operação de um sistema eólico é definida pelas características dinâmicas do vento e da turbina, e a atuação dos dispositivos de eletrônica de potência.
+Desta forma, o acoplamento entre unidades eólicas e a rede básica de energia elétrica pode levar a pertubações nas tensões e correntes do sistema, de forma que este torna-se uma amplo tema de investigação científica atualmente \cite{TeseProfAlex}.
+
+Consequentemente, a qualidade de energia elétrica (QEE) tornou-se um ponto extremamente relevante, pois é necessário atender requisitos estabelecidos por normas, recomendações técnicas específicas e códigos de rede de cada país para assegurar uma adequada integração das centrais eolicas à rede.
+
+No Brasil, o Operador Nacional do Sistema - ONS é responsável, dentro de suas atribuições, por realizar o controle de desempenho da rede básica do Sistema Interligado Nacional - SIN. 
+Exemplos de indicadores que devem ser monitorados são: a conformidade da forma de onda, dentre estes a distorção harmônica, o desequilíbrio e flutuação de tensão \cite{DissertacaoLeandro}.
+
+Dentro do contexto de qualidade de energia elétrica, a regulamentação vigente exige a realização de estudos computacionais e de medições para aceitação de novos acessos de parques eólicos. 
+Os estudos são necessários para avaliação de condições problemáticas de conexão entre os empreendimentos eólicos e o sistema elétrico, problemas que podem ter origem tanto no interior dos parques eólicos quanto na rede de conexão \cite{DissertacaoLeandro}.
+
+Baseado na motivação e na problemática apresentadas, o presente trabalho visa apresentar uma proposta de bancada para estudos de desempenho de unidades eólicas através do projeto de um inversor trifásico \textit{half-bridge}.
+O protótipo servirá para realizar a validação da estrutura laboratorial física a ser projetada, assim como para os algoritmos a serem implementados para as malhas de sincronismo, controle e finalmente, placas de condionamento de sinais.
+Além disso, servirá como base para futuros estudos sobre aspectos específicos de unidades eólicas.
+
 \section{Objetivos}
+
+\subsection{Objetivo Geral}
+O presente trabalho visa projetar e avaliar uma bancada laboratorial para estudos de desempenho de unidades eólicas.
+Para tanto, será utilizado um inversor trifásico de três braços controlado via pulsos de PWM por um microcontrolador
+para sintetização das tensões trifásicas e controle do barramento de corrente contínua do sistema, de forma que haja fluxo
+de potências ativa e reativa entre a entrada, a qual terá um conversor \textit{boost} para simulação do gerador eólico síncrono, e a saída, que é a rede elétrica.
+O protótipo contará ainda com a especificação e projeto de um filtro para atenuação de harmônicos na conexão com a rede.
+
+\subsection{Objetivos Específicos}
+De forma a atender o objetivo em questão, propõe-se:
+\begin{itemize}
+	\item O estudo teórico dos controladores da malha de controle de um inversor trifásico, metodologias de sincronismo, filtros de conexão à rede elétrica e conversor \textit{boost} para simulação da entrada com gerador síncrono (turbina eólica);
+	\item A simulação computacional para validação do modelo teórico através de testes do sistema isolado da rede elétrica, sistema atuando sem injeção de potência na entrada e com injeção de potência;
+	\item A implementação experimental e comparação dos resultados práticos.
+\end{itemize}
 
 \section{Organização do Trabalho}
 
