@@ -1,5 +1,11 @@
 \chapter{Fundamentação Teórica}
 
+\section{Considerações Iniciais}
+
+Este capítulo tem o objetivo de apresentar a base teórica necessária para entendimento dos diversos componentes físicos que compõem a bancada,
+além de mostrar em detalhes os algoritmos de sincronia e controle utilizados.
+Inicia-se apresentando a topologia do inversor ponte completa bidirecional, a necessidade e forma de projeto do filtro LCL e a teoria sobre algoritmos de sincronia e controle.
+
 \section{Inversor Ponte Completa Bidirecional}
 
 O inversor é um dispositivo capaz de alterar uma tensão de entrada CC e transformá-la em uma tensão de saída CA simétrica, com amplitude e frequência desejadas. Para o caso particular em que a tensão de entrada CC é fixa e não controlável, uma tensão de saída variável é obtida através do controle da modulação por largura de pulso (PWM) do inversor. Os inversores podem ser classificados em monofásicos e trifásicos e estes operam com dispositivos de chaveamento da tensão de entrada (com o uso de BJTs, MOSFETs, IGBTs e outros) \cite{MRashid}. No caso particular deste trabalho, foi utilizado um módulo inversor trifásico com IGBTs - \textit{Insulated Gate Bipolar Transistors} - para realização do chaveamento. 
