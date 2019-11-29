@@ -47,19 +47,20 @@ Ainda é possível verificar o envio correto das três correntes para a rede el�
 
 \begin{figure}[!hbt]
 	\centering
-	\begin{subfigure}[b]{\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_2.PNG}
 		\caption{Tensão de saída sintetizada para a fase A}
    \end{subfigure}
 
-   \begin{subfigure}[b]{\textwidth}
+   \begin{subfigure}[b]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_fft.PNG}
 		\caption{Expectro em frequência da tensão sintetizada na fase A. Os harmônicos de alta frequência próximos a frequência de chaveamento de 5 kHz sofreram uma boa atenuação}
    \end{subfigure}
 
-	\begin{subfigure}[b]{\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_4.PNG}
 		\caption{Tensões de saída sintetizadas para as fases A, B e C}
 	\end{subfigure}
@@ -69,19 +70,19 @@ Ainda é possível verificar o envio correto das três correntes para a rede el�
 
 \begin{figure}[!hbt]
 	\centering
-	\begin{subfigure}[b]{\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_saida_inversor_1.PNG}
 		\caption{Corrente de saída na fase A}
     \end{subfigure}
 
-    \begin{subfigure}[b]{\textwidth}
+    \begin{subfigure}[b]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_saida_inversor_fft.PNG}
 		\caption{Expectro em frequência da corrente na fase A. Os harmônicos de baixa frequência também sofreram uma boa atenuação}
     \end{subfigure}
 
-	\begin{subfigure}[b]{\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_saida_inversor_2.PNG}
 		\caption{Correntes de saída para as fases A, B e C}
 	\end{subfigure}
@@ -97,13 +98,13 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
 
 \begin{figure}[!hbt]
 	\centering
-	\begin{subfigure}[b]{\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_entrada_boost_2.PNG}
 		\caption{Tensão na entrada do conversor \textit{Boost}. A tensão média na entrada foi de 250 $V_{DC}$}
 	\end{subfigure}
 	
-	\begin{subfigure}[b]{\textwidth}
+	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_entrada_boost_2.PNG}
 		\caption{Corrente medida na entrada do conversor \textit{Boost}. A corrente média foi de 10 A}
@@ -116,6 +117,19 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
 \subsection{Comportamento do inversor com a inserção de potência variável no barramento CC}
 
 \section{Resultados Experimentais}
+
+A Fig. \ref{fig:res-bancada-inversor} apresenta a montagem experimental realizada para validação da bancada.
+Esta montagem foi realizada utilizando o inversor desacoplado da rede elétrica, de forma que fosse possível validar
+os algoritmos de sincronização e de controle. Os testes com o inversor trifásico acoplado à rede elétrica como STATCOM e
+utilizando o conversor \textit{boost} ainda estão sendo realizados e não serão abordados neste trabalho.
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=\textwidth]{figuras/resultados-montagem-laboratorial.png}
+    \caption{Bancada do inversor trifásico com seus componentes}
+    \label{fig:res-bancada-inversor}
+    \end{center}
+\end{figure}
 
 \subsection{Obtenção e calibração dos sinais de tensão da rede}
 
@@ -207,16 +221,16 @@ e a Fig. \ref{fig:res-escada-corrente} mostra a variação da amplitude de corre
 	\caption{Resultados para atestar o funcionamento da malha de controle de corrente. Os passos foram dados a cada 5 segundos.}
 	\label{tab:res-controle-corrente}
 	
-	\begin{tabular}{ccc}
+	\begin{tabular}{m{5cm}m{5cm}m{5cm}}
 		\toprule
 		\multicolumn{3}{c}{\textbf{Tensão no barramento CC:} 308 V} \\
 		\textbf{Corrente Esperada (A)} & \textbf{Corrente Medida (A)} & \textbf{Tensão sintetizada pelo inversor (V)}\\
 		\midrule
-		0,3 & 0,225 & 40 \\
-		0,6 & 0,460 & 82 \\
-		0,9 & 0,693 & 124 \\
-		1,2 & 0,930 & 167 \\
-		1,5 & 1,173 & 209 \\
+		\multicolumn{1}{c}{0,3} & \multicolumn{1}{c}{0,225} & \multicolumn{1}{c}{40} \\
+		\multicolumn{1}{c}{0,6} & \multicolumn{1}{c}{0,460} & \multicolumn{1}{c}{82} \\
+		\multicolumn{1}{c}{0,9} & \multicolumn{1}{c}{0,693} & \multicolumn{1}{c}{124} \\
+		\multicolumn{1}{c}{1,2} & \multicolumn{1}{c}{0,930} & \multicolumn{1}{c}{167} \\
+		\multicolumn{1}{c}{1,5} & \multicolumn{1}{c}{1,173} & \multicolumn{1}{c}{209} \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -248,7 +262,7 @@ e a Fig. \ref{fig:res-escada-corrente} mostra a variação da amplitude de corre
 		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_1_5.png}
 		\caption{Resultado para $I_{d,ref}$ = 1,5 A}
 	\end{subfigure}
-	\caption{Verificação do aumento da amplitude no sinal de corrente, mostrando que o controle de corrente está sendo realizado pelo sistema}
+	\caption{Verificação do aumento da amplitude no sinal de corrente, mostrando que o controle de corrente está sendo realizado pelo sistema. No canal 1 está o sinal de corrente lido após a placa de condicionamento de sinais e no canal 2 o GPIO10, que é ativado nos semiciclos positivos da PLL, mostrando que a corrente está em fase com a tensão da rede.}
     \label{fig:res-controle-corrente}
 \end{figure}
 
