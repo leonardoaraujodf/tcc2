@@ -111,7 +111,81 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
 
 	\caption{Verificação da tensão e corrente de entrada no conversor \textit{Boost} para cálculo da potência de entrada do sistema}
     \label{fig:sim-tensao-corrente-boost}
-\end{figure}	
-
+\end{figure}
 
 \section{Resultados Experimentais}
+
+\subsection{Obtenção das tensões da rede}
+
+A Fig. \ref{fig:res-tensao-va-vb-bc} mostra as tensões da rede elétrica após a etapa de condicionamento de sinais.
+Para que as tensões e correntes pudessem ser quantizadas corretamente pelo microcontrolador, 
+uma etapa de ajustes finos da placa de condicionamento de sinais foi necessária para que os sinais estivessem dentro da faixa de amostragem do conversor A/D.
+Mais especificamente, foi realizado um ajuste através de um \textit{trimpot} que regulava o nível DC dos sinais na entrada do DSP.
+Além disso, foi necessário se atentar para a correta sequência de fase da rede elétrica.
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_tensao_va_vb.png}
+		\caption{Tensões $V_A$ (canal 1) e $V_B$ (canal 2) após o processamento pela placa de condionamento de sinais e trandutores}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_tensao_va_vc.png}
+		\caption{Tensões $V_A$ (canal 1) e $V_C$ (canal 2) após o processamento pela placa de condionamento de sinais e trandutores}
+	\end{subfigure}
+
+	\caption{Verificação dos sinais respectivos às tensões da rede elétrica após a placa de condicionamento de sinais}
+    \label{fig:res-tensao-va-vb-bc}
+\end{figure}
+
+\subsection{Sincronização com a rede elétrica}
+
+A Fig. \ref{fig:res-sincronizacao} mostra a correta sincronização do algoritmo do DSOGI-PLL. 
+A GPIO10 do DSP foi configurado como saída digital e no semiciclo positivo da senoide da rede elétrica era acionado (3,3 V) e no semiciclo negativo desativado (0 V).
+O ângulo de fase da rede elétrica foi utilizado para o correto acionamento do GPIO, atestando assim o funcionamento do algoritmo em C do DSOGI-PLL no DSP.
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=0.4\textwidth]{figuras/resultados_sincronizacao.png}
+	\caption{Resultado de sincronização do sistema com a rede elétrica. O canal A do osciloscópio estava conectado ao sensor de tensão da fase $V_A$ da rede elétrica e o canal B estava conectado ao GPIO 10 do DSP.}
+    \label{fig:res-sincronizacao}
+    \end{center}
+\end{figure}
+
+\subsection{Verificação do SPWM}
+
+Para realização do chaveamento dos IGBTs do inversor, o DSP TMS320F28335 dispõe
+de um módulos conhecido como \textit{enhanced Pulse Width Modulation} - ePWM, a qual dispõem de diversas configurações aplicadas à sistemas de potência.
+Desta forma, a frequência de chaveamento foi configurada para 5 kHz e o tempo morto entre os acionamentos dos IGBTs para 10 $\mu s$. 
+A Fig. \ref{fig:res-pwm} mostra os resultados obtidos. Pode-se verificar que as especificações requeridas foram atendidas.
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_pwm1_1.png}
+		\caption{Forma de onda do PWM trifásico}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_pwm2_1.png}
+		\caption{Aproximação na forma de onda}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_tempo_morto1.png}
+		\caption{Aproximação mais detalhada para demonstrar o tempo morto configurado}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_tempo_morto2.png}
+		\caption{Verificação do tempo morto de 10 $\mu s$}
+	\end{subfigure}
+	\caption{Sinal de PWM amplificado após a placa de conversão dos sinais de 3,3V para 15V. O módulo ePWM do DSP foi configurado para ter uma frequência de chaveamento de 5 kHz e tempo morto de 10 $\mu s$ entre as bordas de subida e descida dos sinais de acionamento de cada IGBT}
+    \label{fig:res-pwm}
+\end{figure}
+
+\subsection{Validação da malha de controle de corrente}
+
