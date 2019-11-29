@@ -113,9 +113,11 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
     \label{fig:sim-tensao-corrente-boost}
 \end{figure}
 
+\subsection{Comportamento do inversor com a inserção de potência variável no barramento CC}
+
 \section{Resultados Experimentais}
 
-\subsection{Obtenção das tensões da rede}
+\subsection{Obtenção e calibração dos sinais de tensão da rede}
 
 A Fig. \ref{fig:res-tensao-va-vb-bc} mostra as tensões da rede elétrica após a etapa de condicionamento de sinais.
 Para que as tensões e correntes pudessem ser quantizadas corretamente pelo microcontrolador, 
@@ -189,3 +191,71 @@ A Fig. \ref{fig:res-pwm} mostra os resultados obtidos. Pode-se verificar que as 
 
 \subsection{Validação da malha de controle de corrente}
 
+Para validação da malha de controle de corrente, foi criado um teste em C em que a corrente de referência em eixo direto $I_{d,ref}$ 
+foi variada a cada 5 segundos, de forma que esta era inicializada em 0,3 A, após 5 segundos, passava para 0,6 A e assim sucessivamente,
+até atingir 1,5 A, e depois voltava para 0,3 A, em um esquema de escada.
+
+Assim, verificou-se a corrente enviada para os resistores de 100 $\Omega$ com o alicate amperímetro e a Tab. \ref{tab:res-controle-corrente} foi montada.
+Pode-se verificar que a corrente medida no alicate amperímetro tem uma amplitude próxima da corrente desejada, demonstrando assim que a malha de controle de corrente
+estava funcionando. Os erros entre os valores medidos e esperados são devidos, principalmente, as perdas nos componentes elétricos.
+
+A Fig. \ref{fig:res-controle-corrente} mostra a variação na amplitude da corrente medida pelo trandutor e placa de condionamento de sinais a cada 5 segundos, 
+e a Fig. \ref{fig:res-escada-corrente} mostra a variação da amplitude de corrente no tempo demonstrando assim o correto controle da malha.
+
+\begin{table}[h]
+	\centering
+	\caption{Resultados para atestar o funcionamento da malha de controle de corrente. Os passos foram dados a cada 5 segundos.}
+	\label{tab:res-controle-corrente}
+	
+	\begin{tabular}{ccc}
+		\toprule
+		\multicolumn{3}{c}{\textbf{Tensão no barramento CC:} 308 V} \\
+		\textbf{Corrente Esperada (A)} & \textbf{Corrente Medida (A)} & \textbf{Tensão sintetizada pelo inversor (V)}\\
+		\midrule
+		0,3 & 0,225 & 40 \\
+		0,6 & 0,460 & 82 \\
+		0,9 & 0,693 & 124 \\
+		1,2 & 0,930 & 167 \\
+		1,5 & 1,173 & 209 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_0_3.png}
+		\caption{Resultado para $I_{d,ref}$ = 0,3 A}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_0_6.png}
+		\caption{Resultado para $I_{d,ref}$ = 0,6 A}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_0_9.png}
+		\caption{Resultado para $I_{d,ref}$ = 0,9 A}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_1_2.png}
+		\caption{Resultado para $I_{d,ref}$ = 1,2 A}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_1_5.png}
+		\caption{Resultado para $I_{d,ref}$ = 1,5 A}
+	\end{subfigure}
+	\caption{Verificação do aumento da amplitude no sinal de corrente, mostrando que o controle de corrente está sendo realizado pelo sistema}
+    \label{fig:res-controle-corrente}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=0.4\textwidth]{figuras/resultados_escada_corrente.png}
+	\caption{Escada de corrente no tempo mostrando a variação de amplitude a cada 5 segundos}
+    \label{fig:res-escada-corrente}
+    \end{center}
+\end{figure}
