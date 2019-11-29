@@ -2,9 +2,73 @@
 
 \section{Resultados de Simulação Computacional}
 
-\subsection{Inversor isolado da rede elétrica}
-
 \subsection{Inversor como STATCOM}
+
+O primeiro teste realizado foi o de verificar a operação do inversor trifásico conectado 
+à rede elétrica sem injeção de potência no barramento CC. A referência de tensão estabelecida foi de 700 V.
+A Fig. \ref{fig:sim-circuito-statcom} mostra o circuito utilizado.
+
+Ao se iniciar a simulação, o barramento CC do inversor é carregado por 100 ms sem a atuação do controle. 
+Após isto, o sinais de PWM são enviados para a realização do chaveamento, e as tensões e correntes são enviadas para o circuito de controle do inversor.
+Na Fig. \ref{fig:sim-statcom} pode-se verificar os resultados para o barramento CC e a sintetização de tensões da rede.
+A tensão no barramento fica estabilizada em aproximadamente 3 segundos e a sintetização correta das tensões e correntes é realizada.
+
+A Fig. \ref{fig:sim-statcom2} apresenta o ângulo $\theta$, que é o ângulo de fase resultante obtido pelo algoritmo da PLL para obtenção da fase da rede elétrica, 
+em comparação com a tensão da rede $V_A$, mostrando que estes estão perfeitamente em fase e que o algoritmo de controle está em sincronia com as tensões da rede.
+Além disso, mostra também o resultado do chaveamento a ser enviado para o IGBT e a modulante $e_a$ para um certo trecho de simulação.
+
+A configuração como STATCOM é útil para que a tensão no barramento CC fique estabilizada antes da injeção de potência no barramento, 
+e será explorada nas outras etapas de simulação como o passo inicial antes da injeção de potência no sistema.
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/statcom/circuito.PNG}
+    \caption{Circuito do inversor conectado somente à rede elétrica, na operação como STATCOM}
+    \label{fig:sim-circuito-statcom}
+    \end{center}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/barramento-cc.PNG}
+		\caption{Tensão no barramento de corrente contínua como STATCOM}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/tensoes-trifasicas.PNG}
+		\caption{Tensões trifásicas sintetizadas como STATCOM}
+	\end{subfigure}
+
+	\caption{Resultados de simulação para a operação como STATCOM}
+    \label{fig:sim-statcom}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/teta.PNG}
+		\caption{Comparação do ângulo sintetizado pelo algoritmo da PLL e a tensão de fase $V_A$}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/pwm.PNG}
+		\caption{Sinais de PWM enviados para o braço A do inversor trifásico}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/modulante.PNG}
+		\caption{Sinal da modulante $e_a$ implementado para ser enviado ao circuito de geração do PWM}
+	\end{subfigure}
+
+	\caption{Resultados de funcionamento do sistema para a operação como STATCOM}
+    \label{fig:sim-statcom2}
+\end{figure}
 
 \subsection{Inversor conectado ao conversor \textit{boost}}
 
@@ -116,10 +180,37 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
 
 \subsection{Comportamento do inversor com a inserção de potência variável no barramento CC}
 
+Nesta etapa de simulação, o inversor trifásico teve seu barramento de corrente contínua conectado à uma fonte variável de corrente, 
+como pode ser verificado no circuito mostrado na Fig. \ref{fig:sim-controle-corrente-esq}.
+
+Neste esquema, a fonte de corrente tratava-se de um onda triangular que injetava potência na rede elétrica à uma frequência de 0,125 Hz.
+A injeção de potência começou a ser realizada a partir dos 4 segundos de simulação, como pode ser verificado na Fig. \ref{fig:sim-controle-corrente}.
+A partir disto, pode-se ver que a tensão no barramento de corrente contínua permanecia próximo ao valor de referência de 700 V, controlando corretamente
+a injeção de potência para a rede elétrica conforme ocorria a variação de corrente na entrada.
+
+A presente simulação atesta o funcionamento do inversor trifásico para aplicações que envolvam variações de potência na entrada do barramento, algo extremamente comum
+em aplicações envolvendo gerados éolicos e painéis fotovoltaicos.
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/controle_corrente/simulacao_controle_corrente1.PNG}
+    \caption{Circuito do inversor trifásico com seu barramento conectado à uma fonte de corrente variável}
+    \label{fig:sim-controle-corrente-esq}
+    \end{center}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/controle_corrente/simulacao_controle_corrente.PNG}
+    \caption{Resultados de simulação para a injeção de uma corrente variável na entrada do barramento CC de 5 A a partir dos 4 segundos de simulação}
+    \label{fig:sim-controle-corrente}
+    \end{center}
+\end{figure}
+
 \section{Resultados Experimentais}
 
 A Fig. \ref{fig:res-bancada-inversor} apresenta a montagem experimental realizada para validação da bancada.
-Esta montagem foi realizada utilizando o inversor desacoplado da rede elétrica, de forma que fosse possível validar
+Esta montagem foi feita utilizando o inversor desacoplado da rede elétrica, de forma que fosse possível validar
 os algoritmos de sincronização e de controle. Os testes com o inversor trifásico acoplado à rede elétrica como STATCOM e
 utilizando o conversor \textit{boost} ainda estão sendo realizados e não serão abordados neste trabalho.
 
