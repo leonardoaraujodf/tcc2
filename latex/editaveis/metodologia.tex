@@ -124,6 +124,26 @@ A Tabela \ref{tab:resultados-filtro-lcl} apresenta os resultados obtidos para o 
 
 \subsection{Conversor \textit{Boost}}
 
+A Tab. \ref{tab:conversor-boost-componentes} mostra os componentes utilizados pelo 
+conversor \textit{boost} e seus valores/especificação.
+
+\begin{table}
+	\centering
+	\caption{Componentes e seus valores utilizados para o conversor \textit{boost}}
+	\label{tab:conversor-boost-componentes}
+	\begin{tabular}{cc}
+		\toprule
+		\textbf{Componente} & \textbf{Valor/Especificação} \\
+		\midrule
+		Capacitor de entrada ($C_1$) & 470 $\mu$F \\
+		Capacitor de saída ($C_2$) & 680 $\mu$F \\
+		Indutor ($L$)& 2,3 mH \\
+		IBGT & G80N60 \\
+		\bottomrule
+	\end{tabular}
+
+\end{table}
+
 \section{Aquisição e Condicionamento de Sinais}
 
 A etapa de aquisição e condicionamento de sinais destina-se à correta obtenção das tensões e correntes no ponto de acomplamento do inversor com a rede elétrica, e tem como objetivo entregar os parâmetros necessários para a realização do algoritmo de controle implementado no microcontrolador.
