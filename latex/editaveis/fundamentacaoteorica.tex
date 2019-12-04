@@ -412,3 +412,69 @@ Baseado na metologia conhecida como "Ótimo Simétrico", bem definida por \cite{
 	T_4 = 8T_m\label{eq:constante_tempo_malha_externa}\\
 	k_4 = \frac{C}{4T_m}\label{eq:ganho_malha_externa}
 \end{align}
+
+\section{Conversor \textit{Boost} e retificador}
+
+Para simulação da injeção de potência do aerogerador no sistema, é necessário que se forneça 
+corrente ao barramento do inversor. Como foge do escopo deste trabalho a análise dos aspectos 
+de máquina síncrona das turbinas eólicas, como também a unidade de retificação, 
+a inserção de potência, para os objetivos já supracitados, será realizada através do 
+acoplamento de duas das três fases da rede elétrica à um retificador, em que este fará a 
+disponibilidade de tensão contínua para um conversor \textit{Boost}. O último, através de 
+um algoritmo de controle, injetará corrente no inversor, fornecendo assim, 
+potência para a rede elétrica. 
+
+A Fig. \ref{fig:estrutura-boost} mostra a estrutura do conversor \textit{Boost} no sistema.
+Já a Fig. \ref{fig:controle-boost} mostra o diagrama de controle utilizado no conversor.
+O sinal de erro, $erro_1$, resulta da comparação entre o valor de referência $I_{cc,ref}$ 
+e medido $I_{cc,med}$ para a corrente existente no indutor de entrada deste conversor. 
+O sinal de erro então alimenta o controlador PI, o qual define um novo regime de chaveamento 
+por meio de mudanças no índice de modulação $M_{boost}$.
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[scale=0.25]{figuras/estrutura_conversor_boost.png}
+		\caption{Estrutura do conversor \textit{Boost}}
+		\label{fig:estrutura-boost}
+	\end{center}
+\end{figure}
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[scale=0.25]{figuras/controle_boost.png}
+		\caption{Bloco de controle do conversor \textit{Boost}}
+		\label{fig:controle-boost}
+	\end{center}
+\end{figure}
+
+Segundo \cite{TeseProfAlex}, a função de transferência do conversor pode ser encontrada por meio da 
+Eq. \ref{eq:func-trans-pi} que relaciona a corrente média no indutor $I_{CC}$ com o índice de 
+modulação do conversor \textit{boost}, onde $L_{bs}$ é a indutância de entrada do conversor e 
+$V_{cc}$ é a tensão na saída do conversor \textit{boost}.
+
+\begin{align}
+	\frac{I_{CC}}{M_{boost}} = \frac{V_{cc}}{sL_{bs}}\label{eq:func-trans-pi}
+\end{align}
+
+O diagrama da malha de controle do inversor pode ser visualizado na Fig. \ref{fig:pi-boost}.
+Este pode ser usado para determinar as grandezas $k_1$ e $T_1$ do controlador PI utilizado. 
+Além disso, o sistema de medição é representado através de um atraso de primeira ordem no 
+ramo de realimentação.
+
+\begin{figure}[!hbt]
+	\begin{center}
+		\includegraphics[scale=0.60]{figuras/pi_boost.png}
+		\caption{Malha de controle do conversor \textit{Boost}}
+		\label{fig:pi-boost}
+	\end{center}
+\end{figure}
+
+Baseado na metodologia apresenta por \cite{Saleh2012}, é possível sintonizar os parâmetros do controlador PI
+apresentado na Fig. \ref{fig:pi-boost} através das Eqs. \ref{eq:t1-pi-boost} e \ref{eq:ganho-pi-boost}, 
+onde $f_b$ é a largura de banda definida para o controlador, $\theta$ é a margem de fase e $A_{OL}$ é o ganho 
+em malha aberta.
+
+\begin{align}
+	T_1 = \frac{\tan(\theta)}{2\pi f_b}\label{eq:t1-pi-boost}\\
+	k_1 = \frac{2\pi f_b}{A_{OL}}\label{eq:ganho-pi-boost}
+\end{align}
