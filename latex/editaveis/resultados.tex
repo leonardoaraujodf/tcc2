@@ -5,7 +5,7 @@
 \subsection{Inversor como STATCOM}
 
 O primeiro teste realizado foi o de verificar a operação do inversor trifásico conectado 
-à rede elétrica sem injeção de potência no barramento CC. A referência de tensão estabelecida foi de 700 V.
+à rede elétrica sem injeção de potência no barramento CC. A referência de tensão estabelecida foi de 680 V.
 A Fig. \ref{fig:sim-circuito-statcom} mostra o circuito utilizado.
 
 Ao se iniciar a simulação, o barramento CC do inversor é carregado por 100 ms sem a atuação do controle. 
@@ -79,53 +79,57 @@ A Fig. \ref{fig:sim-circuito-inversor-boost} mostra o circuito utilizado.
 
 \begin{figure}[!hbt]
 	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/montagem/sistema_completo.PNG}    \centering
+    \includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/esquematico.PNG}\centering
     \caption{Circuito do inversor conectado com o conversor \textit{boost}, juntamente com os blocos de controle no software PSIM}
     \label{fig:sim-circuito-inversor-boost}
     \end{center}
 \end{figure}
 
-A tensão de referência definida para o barramento CC foi de 700 V. Desta forma, esperou-se que, apesar das pertubações a serem inseridas no sistema, este conseguisse estabilizar a tensão do barramento CC pŕoximo a tensão de referência após alguns segundos. 
-Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento CC e permaneceu assim até os 4 segundos. Após, isso iniciou-se a injeção de potência através do conversor \textit{boost}, que foi programado para injetar 10 A de corrente.
+A tensão de referência definida para o barramento CC foi de 680 V. Desta forma, esperou-se que, apesar das pertubações a serem inseridas no sistema, este conseguisse estabilizar a tensão do barramento CC pŕoximo a tensão de referência após alguns segundos.
+Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento CC e permaneceu assim até 1,5 segundos. Após, isso iniciou-se a injeção de potência através do conversor \textit{boost}, que foi programado para injetar 10 A de corrente.
 
 Pode-se verificar na Fig. \ref{fig:sim-tensao-barramento} a estabilização de tensão no barramento CC. 
-Antes dos 4 segundos, o sistema passou por um transitório mas conseguiu manter a tensão no barramento próximo de 700 V. 
+Antes dos 1,5 segundos, o sistema passou por um transitório, mas conseguiu manter a tensão no barramento próximo de 680 V. 
 Após isto, houve a inserção de corrente pelo \textit{boost}, que provocou uma pertubação, de forma a elevar a tensão sobre o \textit{link} capacitivo do barramento.
 De forma a estabilizar esta tensão, o sistema começou a fornecer potência à rede elétrica de modo a manter a tensão CC próximo a seu valor de referência.
 
 \begin{figure}[!hbt]
 	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_barramento.PNG}
-    \caption{Tensão no barramento CC. A tensão de referência foi definida como 700 V. Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento, como pode-se verificar antes dos 4 segundos. Depois, acontece uma pertubação devido a inserção de potência, mas este estabiliza-se próximo a tensão de referência após alguns segundos}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_barramento.PNG}
+    \caption{Tensão no barramento CC. A tensão de referência foi definida como 680 V. Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento, como pode-se verificar antes dos 1,5 segundos. Depois, acontece uma pertubação devido a inserção de potência, mas este estabiliza-se próximo a tensão de referência após alguns segundos}
     \label{fig:sim-tensao-barramento}
     \end{center}
 \end{figure}
 
 A Fig. \ref{fig:sim-tensao-saida-inversor} mostra as tensões sintetizadas na saída do inversor, após o filtro $L_2$.
-Ao se verificar o expectro em frequência da tensão sintetizada na fase $V_A$, é possível ver que existem harmônicas perto da frequência de chaveamento, mas que não produzem alterações significativas na tensão de saída. 
+Ao se verificar o espectro em frequência da tensão sintetizada na fase $V_A$, é possível ver que existem harmônicas 
+perto da frequência de chaveamento, mas que não produzem alterações significativas na tensão de saída. 
 Verifica-se ainda que houve a sintetização correta das tensões em cada fase.
 
-Já a Fig. \ref{fig:sim-corrente-saida-inversor} mostra as correntes geradas após a inserção de potência pelo \textit{boost} no barramento CC.
-O expectro em frequência da corrente produzida na fase A denominada $I_A$ mostra que existem harmônicas de baixa frequência, de quinta e sétima ordem, mas que não provocam alterações significativas na corrente produzida.
-Ainda é possível verificar o envio correto das três correntes para a rede elétrica.
+Já a Fig. \ref{fig:sim-corrente-saida-inversor} mostra as correntes geradas após a inserção de potência 
+pelo \textit{boost} no barramento CC.
+O espectro em frequência da corrente produzida na fase A denominada $I_A$ mostra que existem 
+harmônicas de baixa frequência, de quinta e sétima ordem, mas que não provocam alterações 
+significativas na corrente produzida. Ainda é possível verificar o envio correto das três 
+correntes para a rede elétrica.
 
 \begin{figure}[!hbt]
 	\centering
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_2.PNG}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va.PNG}
 		\caption{Tensão de saída sintetizada para a fase A}
    \end{subfigure}
 
    \begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_fft.PNG}
-		\caption{Expectro em frequência da tensão sintetizada na fase A. Os harmônicos de alta frequência próximos a frequência de chaveamento de 5 kHz sofreram uma boa atenuação}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va_espectro.PNG}
+		\caption{Espectro em frequência da tensão sintetizada na fase A. Os harmônicos de alta frequência próximos a frequência de chaveamento de 5 kHz sofreram uma boa atenuação}
    \end{subfigure}
 
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_saida_inversor_4.PNG}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va_vb_vc.PNG}
 		\caption{Tensões de saída sintetizadas para as fases A, B e C}
 	\end{subfigure}
     \caption{Análise das tensões de saída sintetizadas após o filtro LCL}
@@ -136,19 +140,24 @@ Ainda é possível verificar o envio correto das três correntes para a rede el�
 	\centering
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_saida_inversor_1.PNG}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia.PNG}
 		\caption{Corrente de saída na fase A}
     \end{subfigure}
 
     \begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_saida_inversor_fft.PNG}
-		\caption{Expectro em frequência da corrente na fase A. Os harmônicos de baixa frequência também sofreram uma boa atenuação}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia_espectro.PNG}
+		\caption{Espectro em frequência da corrente na fase A. Os harmônicos de baixa frequência também sofreram uma boa atenuação}
     \end{subfigure}
 
 	\begin{subfigure}[b]{0.5\textwidth}
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_saida_inversor_2.PNG}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia_ib_ic.PNG}
 		\caption{Correntes de saída para as fases A, B e C}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/injecao_corrente.PNG}
+		\caption{Aumento da injeção de corrente na rede rede no tempo conforme a injeção de potência pelo inversor}
 	\end{subfigure}
     \caption{Análise das corrente de saída após o filtro LCL. Estes resultados foram obtidos após a inserção de corrente pelo conversor \textit{boost} no barramento CC}
     \label{fig:sim-corrente-saida-inversor}
@@ -157,21 +166,27 @@ Ainda é possível verificar o envio correto das três correntes para a rede el�
 Na Fig. \ref{fig:sim-tensao-corrente-boost} pode-se verificar os valores de tensão e de corrente na entrada do conversor \textit{Boost}.
 É possível ver que a tensão na entrada do conversor é aproximadamente 250 V, e a corrente de entrada aproximadamente 10 A, produzindo desta forma uma potência de entrada $P_{entrada}$ = 2500 W.
 
-Utilizando as Figs. \ref{fig:sim-tensao-saida-inversor} e \ref{fig:sim-corrente-saida-inversor} verifica-se que a tensão de pico é aproximadamente 311 V e que a corrente de pico é aproximadamente 5,2 A.
+Utilizando as Figs. \ref{fig:sim-tensao-saida-inversor} e \ref{fig:sim-corrente-saida-inversor} verifica-se que a tensão de pico é aproximadamente 380 V e que a corrente de pico é aproximadamente 5,2 A.
 Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corrente RMS 3,7 A. A potência de saída trifásica é, portanto, $P_{saída}$ = $ 3 \times 219,9 \times 3,7$ = 2441 W, mostrando, portanto, que a potência foi transferida, com algumas perdas, para a rede elétrica.
 
 \begin{figure}[!hbt]
 	\centering
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/tensao_entrada_boost_2.PNG}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_entrada_boost_2.PNG}
 		\caption{Tensão na entrada do conversor \textit{Boost}. A tensão média na entrada foi de 250 $V_{DC}$}
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{0.5\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/sistema_completo/corrente_entrada_boost_2.PNG}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_entrada_boost.PNG}
 		\caption{Corrente medida na entrada do conversor \textit{Boost}. A corrente média foi de 10 A}
+	\end{subfigure}
+
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_referencia_boost.PNG}
+		\caption{Referência de corrente para o conversor \textit{boost} mostrando a variação da inserção de corrente no tempo}
 	\end{subfigure}
 
 	\caption{Verificação da tensão e corrente de entrada no conversor \textit{Boost} para cálculo da potência de entrada do sistema}
@@ -180,29 +195,33 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
 
 \subsection{Comportamento do inversor com a inserção de potência variável no barramento CC}
 
-Nesta etapa de simulação, o inversor trifásico teve seu barramento de corrente contínua conectado à uma fonte variável de corrente, 
-como pode ser verificado no circuito mostrado na Fig. \ref{fig:sim-controle-corrente-esq}.
+Nesta etapa de simulação, houve a inserção de corrente variável no barramento CC do 
+inversor trifásico através da variação constante da corrente de referência para o conversor 
+\textit{boost}, como pode ser verificado no circuito mostrado na Fig. \ref{fig:sim-controle-corrente-esq}.
 
-Neste esquema, a fonte de corrente tratava-se de um onda triangular que injetava potência na rede elétrica à uma frequência de 0,125 Hz.
-A injeção de potência começou a ser realizada a partir dos 4 segundos de simulação, como pode ser verificado na Fig. \ref{fig:sim-controle-corrente}.
-A partir disto, pode-se ver que a tensão no barramento de corrente contínua permanecia próximo ao valor de referência de 700 V, controlando corretamente
+Neste esquema, a fonte de corrente tratava-se de um onda triangular que injetava potência 
+na rede elétrica à uma frequência de 0,125 Hz. A injeção de potência começou a ser realizada 
+a partir dos 4 segundos de simulação, como pode ser verificado na Fig. 
+\ref{fig:sim-controle-corrente}. A partir disto, pode-se ver que a tensão no barramento de 
+corrente contínua permanecia próximo ao valor de referência de 680 V, controlando corretamente
 a injeção de potência para a rede elétrica conforme ocorria a variação de corrente na entrada.
 
-A presente simulação atesta o funcionamento do inversor trifásico para aplicações que envolvam variações de potência na entrada do barramento, algo extremamente comum
-em aplicações envolvendo gerados éolicos e painéis fotovoltaicos.
+A presente simulação atesta o funcionamento do inversor trifásico para aplicações que envolvam 
+variações de potência na entrada do barramento, algo comum em aplicações envolvendo geradores 
+éolicos e painéis fotovoltaicos.
 
 \begin{figure}[!hbt]
 	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/controle_corrente/simulacao_controle_corrente1.PNG}
-    \caption{Circuito do inversor trifásico com seu barramento conectado à uma fonte de corrente variável}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost_variavel/esquematico.PNG}
+    \caption{Circuito do inversor trifásico com seu barramento recebendo a injeção de potência variável}
     \label{fig:sim-controle-corrente-esq}
     \end{center}
 \end{figure}
 
 \begin{figure}[!hbt]
 	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/controle_corrente/simulacao_controle_corrente.PNG}
-    \caption{Resultados de simulação para a injeção de uma corrente variável na entrada do barramento CC de 5 A a partir dos 4 segundos de simulação}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost_variavel/dados.PNG}
+    \caption{Resultados de simulação para a injeção de uma corrente variável na entrada do barramento CC de 10 A a partir de 1 segundo de simulação}
     \label{fig:sim-controle-corrente}
     \end{center}
 \end{figure}
