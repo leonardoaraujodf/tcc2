@@ -228,26 +228,22 @@ Já para a adaptação dos sinais de corrente é utilizado o transdutor de efeit
 		f_{max} = \frac{f_s}{2}\label{eq:freq_sinal}
 	\end{align}
 
-	Com isto, utiliza-se um filtro passa-baixa do tipo \textit{Butterworth} com frequência de corte em 5 kHz e ganho K = 1. A topologia física deste é apresentada na Fig. \ref{fig:filtro-butter}.
+	Com isto, utiliza-se um filtro passa-baixa da topologia \textit{Sallen-Key} de segunda ordem com frequência de corte em 5 kHz e ganho K = 1. A topologia física deste é apresentada na Fig. \ref{fig:filtro-sallen}.
 	
-\begin{figure}[!hbt]
-         % Center the figure.
-         \begin{center}
-         % Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
-         \includegraphics[scale=0.25]{figuras/Filtro_butter.png}
-         % Create a subtitle for the figure.
-         \caption{Topologia do filtro de Butterworth de primeira ordem utilizado na placa de condicionamento de sinais}
-         % Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
-         \label{fig:filtro-butter}
-         \end{center}
- \end{figure}
+	\begin{figure}[!hbt]
+			\begin{center}
+			\includegraphics[scale=0.25]{figuras/sallen_key.png}
+			\caption{Filtro do tipo \textit{Sallen-Key} de segunda ordem utilizado na placa de condicionamento de sinais}
+			\label{fig:filtro-sallen}
+			\end{center}
+	\end{figure}
 
-	A frequência de corte $f_c$ deste filtro é dado pela Eq. \ref{eq:freq_corte_butter} e o ganho $K$ é dado pela Eq. \ref{eq:ganho_butter}.
-	
-\begin{align}
-	f_{c} = \frac{1}{2\pi R_1 C} \label{eq:freq_corte_butter} \\
-	K = -\frac{R_2}{R_1}\label{eq:ganho_butter}
-\end{align}
+%	A frequência de corte $f_c$ deste filtro é dado pela Eq. \ref{eq:freq_corte_butter} e o ganho $K$ é dado pela Eq. \ref{eq:ganho_butter}.
+%	
+%	\begin{align}
+%		f_{c} = \frac{1}{2\pi R_1 C} \label{eq:freq_corte_butter} \\
+%		K = -\frac{R_2}{R_1}\label{eq:ganho_butter}
+%	\end{align}
 
 \subsection{Circuito Somador}
 
