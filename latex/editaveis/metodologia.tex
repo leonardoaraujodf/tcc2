@@ -6,7 +6,7 @@ Este capítulo visa apresentar a estrutura laboratorial concebida com fins de at
 Os objetivos principais são:
 \begin{itemize}
 	\item Descrição do arranjo laboratorial;
-	\item Ajuste da controladores das malhas interna e externa e do método de sincronização. 
+	\item Descrição das etapas de simulação computacional e experimental para validação da bancada.
 \end{itemize}
 
 \section{Estrutura Laboratorial}
@@ -298,3 +298,47 @@ O circuito de regulação e filtragem de tensão destina-se ao suprimento de ten
 		\label{fig:circuito-regulacao}
 	\end{center}
 \end{figure}
+
+\section{Procedimentos para obtenção dos resultados}
+
+\subsection{Procedimentos para os resultados de simulação computacional}
+
+A etapa de simulação computacional teve o objetivo de validar a estrutura física de 
+potência utilizada (filtro LCL, inversor trifásico, conversor \textit{boost}) e 
+os algoritmos de controle e de sincronização. Para isto, as simulações foram 
+realizadas no \textit{software} \textbf{PSIM}, da empresa \textbf{Powersim}, que é 
+um simulador voltado mais especificamente para projetos de eletrônica de potência.
+
+As etapas de simulação consistiram em:
+\begin{itemize}
+	\item Montagem das estrutura física de potência do inversor, filtro, rede elétrica e conversor \textit{boost};
+	\item Montagem de blocos com os códigos em C para realização dos algoritmos de controle e de sincronia;
+	\item Conexão dos blocos;
+	\item Simulação do sistema sem injeção de potência no barramento, ou seja, o inversor atuava como STATCOM;
+	\item Simulação do sistema com a injeção de potência constante através do conversor \textit{boost};
+	\item Simulação do sistema com a injeção de potência variável através do conversor \textit{boost}.
+\end{itemize}
+
+\subsection{Procedimentos para os resultados experimentais}
+
+A etapa experimental visou a montagem física da bancada do inversor trifásico e seus componentes.
+Os procedimentos que foram realizados neste trabalho foram:
+\begin{itemize}
+	\item Montagem do filtro LCL utilizado
+	\item Montagem e calibração das placas de condicionamento de sinais
+	\item Conexão das placas de condicionamento com o DSP
+	\item Calibração do \textit{trimpot} de cada placa de aquisição de sinais para ajuste do nível DC dentro dos limites do conversor A/D
+	\item Conexão do DSP com a placa de conversão de pulsos de 3,3 V para 15 V
+	\item Conexão da placa de conversão de pulsos com o barramento de controle do inversor trifásico
+	\item Ajuste da sequência correta das tensões da rede
+	\item Verificação do algoritmo da PLL
+	\item Verificação do algoritmo de produção dos pulsos de PWM
+	\item Verificação da malha de controle de corrente com inversor isolado
+\end{itemize}
+
+Os procedimentos que ainda não foram realizados, mas que estão serão objetivo de etapas futuras
+serão:
+\begin{itemize}
+	\item Teste do inversor na operação como STATCOM
+	\item Teste do inversor com a injeção de potência na rede elétrica utilizando o conversor \textit{boost}
+\end{itemize}
