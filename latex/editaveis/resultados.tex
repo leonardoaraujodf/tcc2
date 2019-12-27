@@ -8,67 +8,64 @@ O primeiro teste realizado foi o de verificar a operação do inversor trifásic
 à rede elétrica sem injeção de potência no barramento CC. A referência de tensão estabelecida foi de 680 V.
 A Fig. \ref{fig:sim-circuito-statcom} mostra o circuito utilizado.
 
+\begin{figure}[!hbt]
+	\begin{center}
+    \includegraphics[width=\textwidth]{figuras/sim_figures/statcom/circuito.PNG}
+    \caption{Circuito do inversor conectado à rede elétrica na operação como STATCOM no \textit{software} PSIM}
+    \label{fig:sim-circuito-statcom}
+    \end{center}
+\end{figure}
+
 Ao se iniciar a simulação, o barramento CC do inversor é carregado por 100 ms sem a atuação do controle. 
 Após isto, o sinais de PWM são enviados para a realização do chaveamento, e as tensões e correntes são enviadas para o circuito de controle do inversor.
 Na Fig. \ref{fig:sim-statcom} pode-se verificar os resultados para o barramento CC e a sintetização de tensões da rede.
 A tensão no barramento fica estabilizada em aproximadamente 3 segundos e a sintetização correta das tensões e correntes é realizada.
 
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/barramento-cc.png}
+		\caption{ }
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/tensoes_trifasicas.png}
+		\caption{ }
+	\end{subfigure}
+
+	\caption{Resultados de simulação para a operação como STATCOM: (a) Tensão no barramento de corrente contínua. (b) Tensões trifásicas sintetizadas.}
+    \label{fig:sim-statcom}
+\end{figure}
+
 A Fig. \ref{fig:sim-statcom2} apresenta o ângulo $\theta$, que é o ângulo de fase resultante obtido pelo algoritmo da PLL para obtenção da fase da rede elétrica, 
 em comparação com a tensão da rede $V_A$, mostrando que estes estão perfeitamente em fase e que o algoritmo de controle está em sincronia com as tensões da rede.
 Além disso, mostra também o resultado do chaveamento a ser enviado para o IGBT e a modulante $e_a$ para um certo trecho de simulação.
 
-A configuração como STATCOM é útil para que a tensão no barramento CC fique estabilizada antes da injeção de potência no barramento, 
-e será explorada nas outras etapas de simulação como o passo inicial antes da injeção de potência no sistema.
-
-\begin{figure}[!hbt]
-	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/statcom/circuito.PNG}
-    \caption{Circuito do inversor conectado somente à rede elétrica, na operação como STATCOM}
-    \label{fig:sim-circuito-statcom}
-    \end{center}
-\end{figure}
-
 \begin{figure}[!hbt]
 	\centering
-	\begin{subfigure}[b]{0.7\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/barramento-cc.PNG}
-		\caption{Tensão no barramento de corrente contínua como STATCOM}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/teta.png}
+		\caption{}
 	\end{subfigure}
-	
-	\begin{subfigure}[b]{0.7\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/tensoes-trifasicas.PNG}
-		\caption{Tensões trifásicas sintetizadas como STATCOM}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/pwm.png}
+		\caption{}
 	\end{subfigure}
-
-	\caption{Resultados de simulação para a operação como STATCOM}
-    \label{fig:sim-statcom}
-\end{figure}
-
-\begin{figure}[!hbt]
-	\centering
-	\begin{subfigure}[b]{0.7\textwidth}
+	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/teta.PNG}
-		\caption{Comparação do ângulo sintetizado pelo algoritmo da PLL e a tensão de fase $V_A$}
-	\end{subfigure}
-	
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/pwm.PNG}
-		\caption{Sinais de PWM enviados para o braço A do inversor trifásico}
+		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/modulante.png}
+		\caption{}
 	\end{subfigure}
 
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/statcom/modulante.PNG}
-		\caption{Sinal da modulante $e_a$ implementado para ser enviado ao circuito de geração do PWM}
-	\end{subfigure}
-
-	\caption{Resultados de funcionamento do sistema para a operação como STATCOM}
+	\caption{Resultados de funcionamento do sistema para a operação como STATCOM: (a) Comparação do ângulo sintetizado pelo algoritmo da PLL e a tensão de fase $V_A$. (b) Sinais de PWM enviados para o braço A do inversor trifásico. (c) Sinal da modulante $e_a$ implementado para ser enviado ao circuito de geração do PWM}
     \label{fig:sim-statcom2}
 \end{figure}
+
+A configuração como STATCOM é útil para que a tensão no barramento CC fique estabilizada antes da injeção de potência no barramento, 
+e será explorada nas outras etapas de simulação como o passo inicial antes da injeção de potência no sistema.
 
 \subsection{Inversor conectado ao conversor \textit{boost}}
 
@@ -95,8 +92,8 @@ De forma a estabilizar esta tensão, o sistema começou a fornecer potência à 
 
 \begin{figure}[!hbt]
 	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_barramento.PNG}
-    \caption{Tensão no barramento CC. A tensão de referência foi definida como 680 V. Inicialmente o sistema foi inicializado sem nenhuma injeção de potência no barramento, como pode-se verificar antes dos 1,5 segundos. Depois, acontece uma pertubação devido a inserção de potência, mas este estabiliza-se próximo a tensão de referência após alguns segundos}
+    \includegraphics[width=0.5\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_barramento.png}
+    \caption{Tensão no barramento CC com a conexão do inversor com o conversor \textit{boost}.}
     \label{fig:sim-tensao-barramento}
     \end{center}
 \end{figure}
@@ -106,6 +103,27 @@ Ao se verificar o espectro em frequência da tensão sintetizada na fase $V_A$, 
 perto da frequência de chaveamento, mas que não produzem alterações significativas na tensão de saída. 
 Verifica-se ainda que houve a sintetização correta das tensões em cada fase.
 
+\begin{figure}[!hbt]
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va.png}
+		\caption{}
+   \end{subfigure}
+   \begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va_espectro.png}
+		\caption{}
+   \end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va_vb_vc.png}
+		\caption{}
+	\end{subfigure}
+    \caption{Análise das tensões de saída sintetizadas após o filtro LCL: (a) Tensão de saída sintetizada para a fase A. (b) Espectro em frequência da tensão sintetizada na fase A. (c) Tensões de saída sintetizadas para as fases A, B e C.}
+    \label{fig:sim-tensao-saida-inversor}
+\end{figure}
+
 Já a Fig. \ref{fig:sim-corrente-saida-inversor} mostra as correntes geradas após a inserção de potência 
 pelo \textit{boost} no barramento CC.
 O espectro em frequência da corrente produzida na fase A denominada $I_A$ mostra que existem 
@@ -113,54 +131,30 @@ harmônicas de baixa frequência, de quinta e sétima ordem, mas que não provoc
 significativas na corrente produzida. Ainda é possível verificar o envio correto das três 
 correntes para a rede elétrica.
 
-\begin{figure}[!hbt]
-	\centering
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va.PNG}
-		\caption{Tensão de saída sintetizada para a fase A}
-   \end{subfigure}
-
-   \begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va_espectro.PNG}
-		\caption{Espectro em frequência da tensão sintetizada na fase A. Os harmônicos de alta frequência próximos a frequência de chaveamento de 5 kHz sofreram uma boa atenuação}
-   \end{subfigure}
-
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_va_vb_vc.PNG}
-		\caption{Tensões de saída sintetizadas para as fases A, B e C}
+\begin{figure}[ht]
+\centering
+ 	\begin{subfigure}[b]{0.49\textwidth}
+ 		\centering
+ 		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia.png}
+ 		\caption{}
 	\end{subfigure}
-    \caption{Análise das tensões de saída sintetizadas após o filtro LCL}
-    \label{fig:sim-tensao-saida-inversor}
-\end{figure}
-
-\begin{figure}[!hbt]
-	\centering
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia.PNG}
-		\caption{Corrente de saída na fase A}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia_espectro.PNG}
-		\caption{Espectro em frequência da corrente na fase A. Os harmônicos de baixa frequência também sofreram uma boa atenuação}
-    \end{subfigure}
-
-	\begin{subfigure}[b]{0.7\textwidth}
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia_ib_ic.PNG}
-		\caption{Correntes de saída para as fases A, B e C}
-	\end{subfigure}
-
-	\begin{subfigure}[b]{0.7\textwidth}
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/injecao_corrente.PNG}
-		\caption{Aumento da injeção de corrente na rede rede no tempo conforme a injeção de potência pelo inversor}
-	\end{subfigure}
-    \caption{Análise das corrente de saída após o filtro LCL. Estes resultados foram obtidos após a inserção de corrente pelo conversor \textit{boost} no barramento CC}
-    \label{fig:sim-corrente-saida-inversor}
+     \begin{subfigure}[b]{0.49\textwidth}
+  		\centering
+  		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia_espectro.png}
+  		\caption{}
+ 	\end{subfigure}
+  	\begin{subfigure}[b]{0.49\textwidth}
+  		\centering
+  		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_ia_ib_ic.png}
+  		\caption{}
+ 	\end{subfigure}
+  	\begin{subfigure}[b]{0.49\textwidth}
+  		\centering
+  		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/injecao_corrente.png}
+  		\caption{}
+  	\end{subfigure}
+     \caption{Análise da corrente de saída após o filtro LCL. Os resultados foram obtidos após a inserção de corrente pelo conversor \textit{boost} no barramento CC: (a) Corrente de saída na fase A. (b) Espectro em frequência da corrente na fase A. (c) Correntes de saída para as fases A, B e C. (d) Aumento da injeção de corrente na rede conforme se injetava potência no inversor.}
+     \label{fig:sim-corrente-saida-inversor}
 \end{figure}
 
 Na Fig. \ref{fig:sim-tensao-corrente-boost} pode-se verificar os valores de tensão e de corrente na entrada do conversor \textit{Boost}.
@@ -171,25 +165,22 @@ Desta forma, convertendo para RMS, temos que a tensão RMS é 219,91 V e a corre
 
 \begin{figure}[!hbt]
 	\centering
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_entrada_boost_2.PNG}
-		\caption{Tensão na entrada do conversor \textit{Boost}. A tensão média na entrada foi de 250 $V_{DC}$}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/tensao_entrada_boost_2.png}
+		\caption{}
 	\end{subfigure}
-	
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_entrada_boost.PNG}
-		\caption{Corrente medida na entrada do conversor \textit{Boost}. A corrente média foi de 10 A}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_entrada_boost.png}
+		\caption{}
 	\end{subfigure}
-
-	\begin{subfigure}[b]{0.7\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_referencia_boost.PNG}
-		\caption{Referência de corrente para o conversor \textit{boost} mostrando a variação da inserção de corrente no tempo}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost/corrente_referencia_boost.png}
+		\caption{}
 	\end{subfigure}
-
-	\caption{Verificação da tensão e corrente de entrada no conversor \textit{Boost} para cálculo da potência de entrada do sistema}
+	\caption{Verificação da tensão e corrente de entrada no conversor \textit{Boost} para cálculo da potência de entrada do sistema. (a) Tensão na entrada do conversor \textit{Boost}. (b) Corrente medida na entrada do conversor \textit{Boost}. (c) Referência de corrente para o conversor \textit{boost} mostrando a variação da inserção de corrente no tempo.}
     \label{fig:sim-tensao-corrente-boost}
 \end{figure}
 
@@ -219,11 +210,24 @@ variações de potência na entrada do barramento, algo comum em aplicações en
 \end{figure}
 
 \begin{figure}[!hbt]
-	\begin{center}
-    \includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost_variavel/dados.PNG}
-    \caption{Resultados de simulação para a injeção de uma corrente variável na entrada do barramento CC de 10 A a partir de 1 segundo de simulação}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost_variavel/tensao_barramento.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost_variavel/corrente_referencia.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+	\centering
+		\includegraphics[width=\textwidth]{figuras/sim_figures/inversor_e_boost_variavel/injecao_corrente.png}
+		\caption{}
+	\end{subfigure}
+	\caption{Resultados de simulação para a injeção de uma corrente variável na entrada do barramento CC de 10 A a partir de 1 segundo de simulação: (a) Tensão no barramento CC. (b) Referência de corrente para o conversor \textit{boost}. (c) Injeção de corrente na rede elétrica.}
     \label{fig:sim-controle-corrente}
-    \end{center}
 \end{figure}
 
 \section{Resultados Experimentais}
@@ -254,15 +258,14 @@ Além disso, foi necessário se atentar para a correta sequência de fase da red
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_tensao_va_vb.png}
-		\caption{Tensões $V_A$ (canal 1) e $V_B$ (canal 2) após o processamento pela placa de condionamento de sinais e trandutores}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_tensao_va_vc.png}
-		\caption{Tensões $V_A$ (canal 1) e $V_C$ (canal 2) após o processamento pela placa de condionamento de sinais e trandutores}
+		\caption{}
 	\end{subfigure}
-
-	\caption{Verificação dos sinais respectivos às tensões da rede elétrica após a placa de condicionamento de sinais}
+	\caption{Verificação dos sinais respectivos às tensões da rede elétrica após a placa de condicionamento de sinais: (a) Tensões $V_A$ (canal 1) e $V_B$ (canal 2). (b) Tensões $V_A$ (canal 1) e $V_C$ (canal 2).}
     \label{fig:res-tensao-va-vb-bc}
 \end{figure}
 
@@ -270,12 +273,13 @@ Além disso, foi necessário se atentar para a correta sequência de fase da red
 
 A Fig. \ref{fig:res-sincronizacao} mostra a correta sincronização do algoritmo do DSOGI-PLL. 
 A GPIO10 do DSP foi configurado como saída digital e no semiciclo positivo da senoide da rede elétrica era acionado (3,3 V) e no semiciclo negativo desativado (0 V).
+O canal A do osciloscópio estava conectado ao sensor de tensão da fase $V_A$ da rede elétrica e o canal B estava conectado ao GPIO 10 do DSP.
 O ângulo de fase da rede elétrica foi utilizado para o correto acionamento do GPIO, atestando assim o funcionamento do algoritmo em C do DSOGI-PLL no DSP.
 
 \begin{figure}[!hbt]
 	\begin{center}
     \includegraphics[width=0.4\textwidth]{figuras/resultados_sincronizacao.png}
-	\caption{Resultado de sincronização do sistema com a rede elétrica. O canal A do osciloscópio estava conectado ao sensor de tensão da fase $V_A$ da rede elétrica e o canal B estava conectado ao GPIO 10 do DSP.}
+	\caption{Resultado de sincronização do sistema com a rede elétrica.}
     \label{fig:res-sincronizacao}
     \end{center}
 \end{figure}
@@ -284,7 +288,7 @@ O ângulo de fase da rede elétrica foi utilizado para o correto acionamento do 
 
 Para realização do chaveamento dos IGBTs do inversor, o DSP TMS320F28335 dispõe
 de um módulos conhecido como \textit{enhanced Pulse Width Modulation} - ePWM, a qual dispõem de diversas configurações aplicadas à sistemas de potência.
-Desta forma, a frequência de chaveamento foi configurada para 5 kHz e o tempo morto entre os acionamentos dos IGBTs para 10 $\mu s$. 
+Utilizando o módulo \textit{ePWM}, a frequência de chaveamento foi configurada para 5 kHz e o tempo morto entre os acionamentos dos IGBTs para 10 $\mu s$.
 A Fig. \ref{fig:res-pwm} mostra os resultados obtidos. Pode-se verificar que as especificações requeridas foram atendidas.
 
 \begin{figure}[!hbt]
@@ -292,24 +296,24 @@ A Fig. \ref{fig:res-pwm} mostra os resultados obtidos. Pode-se verificar que as 
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_pwm1_1.png}
-		\caption{Forma de onda do PWM trifásico}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_pwm2_1.png}
-		\caption{Aproximação na forma de onda}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_tempo_morto1.png}
-		\caption{Aproximação mais detalhada para demonstrar o tempo morto configurado}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_tempo_morto2.png}
-		\caption{Verificação do tempo morto de 10 $\mu s$}
+		\caption{}
 	\end{subfigure}
-	\caption{Sinal de PWM amplificado após a placa de conversão dos sinais de 3,3V para 15V. O módulo ePWM do DSP foi configurado para ter uma frequência de chaveamento de 5 kHz e tempo morto de 10 $\mu s$ entre as bordas de subida e descida dos sinais de acionamento de cada IGBT}
+	\caption{Sinal de PWM amplificado após a placa de conversão dos sinais de 3,3V para 15V: (a) Forma de onda do PWM trifásico. (b) Aproximação na forma de onda. (c) Aproximação mais detalhada para demonstrar o tempo morto configurado. (d) Verificação do tempo morto de 10 $\mu s$.}
     \label{fig:res-pwm}
 \end{figure}
 
@@ -322,9 +326,6 @@ até atingir 1,5 A, e depois voltava para 0,3 A, em um esquema de escada.
 Assim, verificou-se a corrente enviada para os resistores de 100 $\Omega$ com o alicate amperímetro e a Tab. \ref{tab:res-controle-corrente} foi montada.
 Pode-se verificar que a corrente medida no alicate amperímetro tem uma amplitude próxima da corrente desejada, demonstrando assim que a malha de controle de corrente
 estava funcionando. Os erros entre os valores medidos e esperados são devidos, principalmente, as perdas nos componentes elétricos.
-
-A Fig. \ref{fig:res-controle-corrente} mostra a variação na amplitude da corrente medida pelo trandutor e placa de condionamento de sinais a cada 5 segundos, 
-e a Fig. \ref{fig:res-escada-corrente} mostra a variação da amplitude de corrente no tempo demonstrando assim o correto controle da malha.
 
 \begin{table}[h]
 	\centering
@@ -345,34 +346,38 @@ e a Fig. \ref{fig:res-escada-corrente} mostra a variação da amplitude de corre
 	\end{tabular}
 \end{table}
 
+A Fig. \ref{fig:res-controle-corrente} mostra a variação na amplitude da corrente medida pelo trandutor e placa de condionamento de sinais a cada 5 segundos. 
+No canal 1 está o sinal de corrente lido após a placa de condicionamento de sinais e no canal 2 o GPIO10, que é ativado nos semiciclos positivos da PLL, mostrando que a corrente está em fase com a tensão da rede.
+e a Fig. \ref{fig:res-escada-corrente} mostra a variação da amplitude de corrente no tempo demonstrando assim o correto controle da malha.
+
 \begin{figure}[!hbt]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_0_3.png}
-		\caption{Resultado para $I_{d,ref}$ = 0,3 A}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_0_6.png}
-		\caption{Resultado para $I_{d,ref}$ = 0,6 A}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_0_9.png}
-		\caption{Resultado para $I_{d,ref}$ = 0,9 A}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_1_2.png}
-		\caption{Resultado para $I_{d,ref}$ = 1,2 A}
+		\caption{}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{figuras/resultados_controle_corrente_1_5.png}
-		\caption{Resultado para $I_{d,ref}$ = 1,5 A}
+		\caption{}
 	\end{subfigure}
-	\caption{Verificação do aumento da amplitude no sinal de corrente, mostrando que o controle de corrente está sendo realizado pelo sistema. No canal 1 está o sinal de corrente lido após a placa de condicionamento de sinais e no canal 2 o GPIO10, que é ativado nos semiciclos positivos da PLL, mostrando que a corrente está em fase com a tensão da rede.}
+	\caption{Verificação do aumento da amplitude no sinal de corrente: (a) Resultado para $I_{d,ref}$ = 0,3 A. (b) Resultado para $I_{d,ref}$ = 0,6 A. (c) Resultado para $I_{d,ref}$ = 0,9 A. (d) Resultado para $I_{d,ref}$ = 1,2 A. (e) Resultado para $I_{d,ref}$ = 1,5 A.}
     \label{fig:res-controle-corrente}
 \end{figure}
 
