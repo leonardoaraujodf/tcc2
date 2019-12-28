@@ -2,9 +2,9 @@
 
 \section{Considerações Iniciais}
 
-Este capítulo tem o objetivo de apresentar a base teórica necessária para entendimento dos diversos componentes físicos que compõem a bancada,
-além de mostrar em detalhes os algoritmos de sincronia e controle utilizados.
-Inicia-se apresentando a topologia do inversor ponte completa bidirecional, a necessidade e forma de projeto do filtro LCL, a teoria sobre algoritmos de sincronia e controle e o conversor \textit{boost}.
+Este capítulo apresenta a base teórica necessária para entendimento dos diversos componentes físicos 
+que compõem a bancada e os algoritmos de sincronia e controle utilizados.
+Apresenta-se a topologia do inversor ponte completa bidirecional, o projeto do filtro LCL, a teoria sobre algoritmos de sincronia e controle e o conversor \textit{boost}.
 
 \section{Inversor Ponte Completa Bidirecional}
 
@@ -149,7 +149,7 @@ Visto que as referências de corrente de eixo direto e de eixo em quadratura sã
 		% Center the figure.
 		\begin{center}
 			% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
-			\includegraphics[width=\columnwidth]{figuras/Malha_Anti_Windup.PNG}
+			\includegraphics[width=0.75\columnwidth]{figuras/Malha_Anti_Windup.PNG}
 			% Create a subtitle for the figure.
 			\caption{Malha de controle Anti Windup. Fonte: \cite{TeseProfAlex}}
 			% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
@@ -181,7 +181,7 @@ As referências finais para as malhas de controle de corrente, representadas pel
 Pode-se visualizar na Fig. \ref{fig:Estrategia_Grandezas} que as tensões no ponto de acoplamento são utilizadas como variáveis de entrada para a estrutura \textit{Frequency Locked Loop} (FLL). A estrutura da FLL será discutida posteriormente neste trabalho, mas convém destacar neste momento que esta tem por objetivo produzir o ângulo de fase das tensões $\theta $, de forma que se realize a transformação vetorial de tensões e correntes. De forma a converter as grandezas de fase (a, b e c) em grandezas de eixo direto e de eixo em quadratura (d e q), utiliza-se a matriz de transformação $T_{dq}$, conforme as Eqs. \ref{eq:matrix_transformacao} e \ref{eq:matriz_transformacao_2}. As variáveis de eixo direto e de eixo em quadratura das correntes a, b e c também são obtidas por equações similares.
 
 \begin{align}
-V_{dq} = [T_{dq}][V_{\alpha \beta}]\nonumber
+V_{dq} = [T_{dq}][V_{\alpha \beta}]
 \end{align}
 
 \begin{align}\label{eq:matrix_transformacao}
@@ -210,23 +210,33 @@ V_{dq} = [T_{dq}][V_{\alpha \beta}]\nonumber
 	\end{bmatrix}
 \end{align}
 
-Utilizando os resultados obtidos, obtêm-se a potência reativa medida $q$, cujo cálculo é realizado conforme a Eq. \ref{eq:potencia_reativa_medida}.
+Utilizando os resultados obtidos, obtêm-se a potência reativa medida $Q$, cujo cálculo é realizado conforme a Eq. \ref{eq:potencia_reativa_medida}.
 
 \begin{align}\label{eq:potencia_reativa_medida}
-	q = \frac{3}{2}(V_d I_q - V_q I_d)
+	Q = \frac{3}{2}(V_d I_q - V_q I_d)
 \end{align}
 
 Devido aos desequilíbrios e distorções harmônicas existentes nas variáveis medidas, realiza-se um processo de filtragem do sinal obtido. Mais especificamente, filtros do tipo \textit{Butterworth} de 1ª ordem foram utilizados, com frequência de corte definida em 100 rad/s. O mesmo procedimento foi utilizado para as correntes de eixo direto e em quadratura, onde estas foram submetidas à um filtro do tipo \textit{Butterworth} de 1ª ordem com frequência de corte de 500 rad/s.
 
 \section{Método de Sincronismo}
 
-Quando deseja-se integrar fontes eólicas à rede elétrica, em destaque para as que utilizam conversores para o processamento da energia produzida, deve-se realizar a sincronização das tensões sintetizadas pelo inversor com aquelas existentes no ponto de acoplamento \cite{TeseProfAlex}. 
+Quando deseja-se integrar fontes eólicas à rede elétrica, em destaque para as que utilizam conversores 
+para o processamento da energia produzida, deve-se realizar a sincronização das tensões sintetizadas 
+pelo inversor com aquelas existentes no ponto de acoplamento \cite{TeseProfAlex}. 
 
-Além disso, pertubações de rede levam a problemas de qualidade de energia, como desbalanceamento de tensão, quedas/picos de tensão, flutuações de tensão, faltas de fase e inserção de harmônicos indesejáveis em sistemas conectados à rede. Dessa forma, um método apropriado de sincronização é requerido para superar estes problemas \cite{Meral2018}. 
+Além disso, pertubações de rede levam a problemas de qualidade de energia, como desbalanceamento 
+de tensão, quedas/picos de tensão, flutuações de tensão, faltas de fase e inserção de harmônicos 
+indesejáveis em sistemas conectados à rede. Dessa forma, um método apropriado de sincronização é 
+requerido para superar estes problemas \cite{Meral2018}. 
 
-Baseado nestes aspectos, o uso de estruturas de detecção de módulo e ângulo de fase de tensões trifásicas, como a tecnologia denominada \textit{Frequency Locked Loop} - FLL, é decisivo para que o fluxo de energia ativa e reativa não ocasione instabilidades no sistema elétrico.
+Baseado nestes aspectos, o uso de estruturas de detecção de módulo e ângulo de fase de tensões 
+trifásicas, como a tecnologia denominada \textit{Phase Locked Loop} - PLL, é decisivo para que o 
+fluxo de energia ativa e reativa não ocasione instabilidades no sistema elétrico.
 
-De forma que os requisitos estabelecidos sejam cumpridos, neste trabalho é utilizado umas das técnicas mais difundidas na literatura tratando-se da sincronização de inversores com a rede elétrica, conhecida como \textit{Dual Second-Order Generalized Integrator FLL} (DSOGI-FLL), cujo diagrama de bloco é apresentado na Fig. \ref{fig:DSOGI_FLL}.  
+De forma que os requisitos estabelecidos sejam cumpridos, neste trabalho é utilizado umas 
+das técnicas mais difundidas na literatura tratando-se da sincronização de inversores com a rede 
+elétrica, conhecida como \textit{Dual Second-Order Generalized Integrator PLL} (DSOGI-PLL), 
+cujo diagrama de bloco é apresentado na Fig. \ref{fig:DSOGI_PLL}.  
 
 \begin{figure}[!hbt]
 	% Center the figure.
@@ -234,15 +244,15 @@ De forma que os requisitos estabelecidos sejam cumpridos, neste trabalho é util
 		% Include the eps file, scale it such that it's width equals the column width. You can also put width=8cm for example...
 		\includegraphics[width=0.6\columnwidth]{figuras/DSOGI_PLL.PNG}
 		% Create a subtitle for the figure.
-		\caption{Diagrama de blocos completo do DSOGI-FLL. (a) Bloco utilizado em aplicações monofásicas. (b) Bloco utilizado em aplicações trifásicas. Fonte: \cite{Meral2018}.}
+		\caption{Diagrama de blocos completo do DSOGI-PLL. (a) Bloco utilizado em aplicações monofásicas. (b) Bloco utilizado em aplicações trifásicas. Fonte: \cite{Meral2018}.}
 		% Define the label of the figure. It's good to use 'fig:title', so you know that the label belongs to a figure.
-		\label{fig:DSOGI_FLL}
+		\label{fig:DSOGI_PLL}
 	\end{center}
 \end{figure}
 
-O DSOGI-FLL é uma metodologia que cumpre os requisitos de sincronismo com a rede elétrica e tem como vantagens simplicidade estrutural, facilidade de implementação, rejeição de distorções harmônicas e desequilíbrios, precisão na extração da sequência positiva, adaptabilidade a possíveis variações na frequência nas tensões da rede e precisão do ângulo calculado. A posição angular e a frequência na saída da FLL são utilizadas na transformações de Park das correntes medidas, possibilitando assim a realização da estratégia de controle do inversor de frequência \cite{DissertacaoJoao}.
+O DSOGI-PLL é uma metodologia que cumpre os requisitos de sincronismo com a rede elétrica e tem como vantagens simplicidade estrutural, facilidade de implementação, rejeição de distorções harmônicas e desequilíbrios, precisão na extração da sequência positiva, adaptabilidade a possíveis variações na frequência nas tensões da rede e precisão do ângulo calculado. A posição angular e a frequência na saída da PLL são utilizadas na transformações de Park das correntes medidas, possibilitando assim a realização da estratégia de controle do inversor de frequência \cite{DissertacaoJoao}.
 
-Os aspectos da modelagem matemática desta estrutura e sua respectiva análise de desempenho fogem do escopo e não serão apresentados neste trabalho, porém podem ser verificados com detalhes nos trabalhos de \cite{ArticleRodriguez} e \cite{book-remusteodorescu201b1}.
+Os aspectos da modelagem matemática desta estrutura e sua respectiva análise de desempenho fogem do escopo e não serão apresentados neste trabalho, porém, podem ser verificados com detalhes nos trabalhos de \cite{ArticleRodriguez} e \cite{book-remusteodorescu201b1}.
 
 \section{Estratégia de Chaveamento}
 
@@ -326,8 +336,8 @@ Pelo fato de o controle da unidade inversora ser embasado em componentes \textit
 Ainda respaldado pela teoria vetorial, a potência instantânea entregue pelo inversor à rede elétrica pode ser expressa pelas Eqs. \ref{eq:potencia_instantanea1} e \ref{eq:potencia_instantanea2}. 
 
 \begin{align}
-	p = \frac{3}{2}(v_di_d + v_qi_q)\label{eq:potencia_instantanea1}\\
-	q = \frac{3}{2}(v_di_q - v_qi_d)\label{eq:potencia_instantanea2}
+	P = \frac{3}{2}(v_di_d + v_qi_q)\label{eq:potencia_instantanea1}\\
+	Q = \frac{3}{2}(v_di_q - v_qi_d)\label{eq:potencia_instantanea2}
 \end{align}
 
 Destaca-se que as componentes $v_d$ e $v_q$ assumem os valores definidos nas Eqs. \ref{eq:tensao_vd_real} e \ref{eq:tensao_vq_real}, assumindo que as tensões no ponto de acoplamento da unidade eólica são tomadas como referência para a transformação vetorial e estando o eixo direto em fase com o vetor tensão da rede elétrica, onde $|V|$ assume o módulo da tensão no PAC \cite{TeseProfAlex}. 
@@ -340,8 +350,8 @@ Destaca-se que as componentes $v_d$ e $v_q$ assumem os valores definidos nas Eqs
 Do apresentado acima, as potências instantâneas ativa e reativa podem ser expressas, respectivamente, pelas Eqs. \ref{eq:potencia_instantanea11} e \ref{eq:potencia_instantanea22}. Com isto, pode-se verificar que o controle de fluxo de potência ativa pode ser realizado através do ajuste da componente $i_d$ que circula entre o inversor e a rede elétrica, enquanto que o fluxo de potência reativa depende da parcela $i_q$.
 
 \begin{align}
-	p = \frac{3}{2}|V|i_d\label{eq:potencia_instantanea11}\\
-	q = \frac{3}{2}|V|i_q\label{eq:potencia_instantanea22}
+	P = \frac{3}{2}|V|i_d\label{eq:potencia_instantanea11}\\
+	Q = \frac{3}{2}|V|i_q\label{eq:potencia_instantanea22}
 \end{align}
 
 Aplicando a transformada de Laplace sobre as Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} obtêm-se as funções de transferência referentes à saída do inversor representadas pelas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace}, que destinam-se, respectivamente, a determinação das correntes de eixo direto e eixo em quadratura em função da tensão gerada pelo conversor. Observa-se que os termos existentes nas Eqs. \ref{eq:tensao_vd} e \ref{eq:tensao_vq} que não constam nas Eqs. \ref{eq:corrente_dire_laplace} e \ref{eq:corrente_quad_laplace} são inseridos na estrutura de controle como parcelas do tipo \textit{feedforward}.

@@ -1,44 +1,48 @@
-\chapter{Considerações Finais}
+\chapter{Conclusões}
 
-No presente trabalho, verificou-se a importância do estudo, implementação e utilização de fontes eólicas 
-para a geração de energia elétrica. Visto que estas fontes são altamente dependentes de fatores meteorológicos, 
-climáticos e sazonais, a integração destas com o sistema elétrico de potência pode ocasionar sérios distúrbios 
-no funcionamento da rede elétrica, o que têm sido um tema de amplas pesquisas no ambiente acadêmico, 
-como foi em especial, o objetivo primário de investigação deste trabalho.
+No presente trabalho verificou-se a importância do estudo, implementação e utilização de fontes eólicas 
+para a geração de energia elétrica. Observa-se que estas fontes são altamente dependentes de fatores meteorológicos, 
+climáticos e sazonais, de forma que integração destas com o sistema elétrico de potência podem ocasionar distúrbios 
+no funcionamento da rede elétrica. 
+O estudo destes distúrbios e formas de atenuação foram o objetivo primário de investigação deste trabalho.
 
 Por conseguinte, detalhou-se alguns dos diversos componentes de uma bancada para acoplamento de unidades eólicas, 
 sua modelagem matemática, discretização, projeto de componentes físicos e a implementação dos algoritmos de controle
-e de sincronização em microcontrolador, tendo em vista que a teoria demonstrada possui alicerce teórico bem fundamentado.
+e de sincronização em microcontrolador.
 
-Houve, ainda, a preocupação de que os procedimentos fossem de fácil reprodução para outros estudos de pesquisa e 
+Houve uma preocupação de que os procedimentos fossem de fácil reprodução para outros estudos de pesquisa e 
 pela indústria. Em especial destaque, o projeto do filtro LCL e das malhas de controle e de sincronismo do inversor.
-Desta forma, baseado nos procedimentos demonstrados, pode-se determinar a escolha do melhor filtro para acoplamento da 
-unidade eólica à rede elétrica, de forma a atender tanto os requisitos físicos de projeto como de critérios 
-estabelecidos pelos organismos governamentais. As equações discretizadas foram convertidas e implementadas em 
-linguagem C, e utilizadas em um DSP criado para atendar as demandas da indústria de controladores de potência. Estas podem 
-ser, ainda, adaptadas para diversos outros microcontroladores e DSPs.
+Com isto pode-se projetar o filtro para acoplamento da  unidade eólica à rede elétrica de forma a atender 
+tanto os requisitos físicos de projeto como de critérios estabelecidos pelos organismos governamentais. 
+As equações discretizadas foram convertidas e implementadas em linguagem C, e utilizadas em um DSP projetado 
+para atendar as demandas da indústria de controladores de potência. 
+Estas equações podem ser ainda adaptadas para diversos outros microcontroladores e DSPs.
 
-Os resultados computacionais obtidos mostraram que o projeto do inversor trifásico atendeu satisfatoriamente os requisitos
-impostos, de forma que houve o controle correto da tensão no barramento de corrente contínua para o caso da simulação de 
-injeção de potência constante e variável pelo aerogerador no sistema e também para o caso em que este entrava em falta, 
-requisitando potência da rede elétrica. Verificou-se ainda que o filtro LCL atenuava corretamente as harmônicas de alta 
-frequência injetadas devido ao chaveamento dos IGBTs. Com isto, validou-se as malhas de controle e de sincronismo, 
-assim como os componentes físicos utilizados, dando robustez para a fundamentação teórica demonstrada e prosseguimento 
-com os testes experimentais. 
+Os resultados de simulação computacional mostraram que o projeto do inversor trifásico atendeu os requisitos
+impostos, de forma que houve o controle da tensão no barramento de corrente contínua dentro do limite de tensão CC estabelecido,
+para o caso da simulação de injeção de potência constante pelo aerogerador, para o caso da injeção de potência variável pelo aerogerador 
+e ainda para o caso em que o aerogerador entrava em falta, fazendo com que o inversor requisitasse potência da rede elétrica. 
+
+Os resultados de simulação computacional revelaram ainda que o filtro LCL atenuava as harmônicas de alta frequência dentro 
+das especificações projetadas, harmônicas estas devidas ao chaveamento dos IGBTs.
+Desta forma, validou-se as malhas de controle e de sincronismo, assim como os componentes físicos utilizados.
 
 Para os resultados obtidos em laboratório, pode-se realizar o ajuste das placas de aquisição e condionamento, validar a malha de sincronismo 
 através do algoritmo do DSOGI-FLL, verificar e atestar o funcionamento da implementação do SPWM através do módulos 
 disponibilizados pelo DSP e atestar o funcionamento das malhas internas de controle de corrente, para o caso em que o inversor 
 estava com sua saída isolada da rede elétrica. 
-Foram realizados experimentos com o controle do barramento de corrente contínua, e a princípio obteve-se sucesso na 
-verificação deste, mas os resultados não foram apresentados neste trabalho pois ainda não se conseguiu verificar o 
-funcionamento do inversor na operação de STATCOM. Posteriormente, outros testes experimentais serão 
-realizados para verificação do inversor nesta última operação e também o teste controle da injeção de potência 
-no barramento através do conversor \textit{boost}.
 
-Com isto, o presente trabalho apresenta somente uma estimativa inicial no que tange o
-desenvolvimento prático de estudos de bancadas eólicas e servirá como ponto de apoio e
-alicerce para que outros pesquisadores e entusiastas realizem o desenvolvimento 
-de estudos futuros de controladores de potência no que tange, por exemplo, 
-a determinação de distorções harmônicas, máquinas síncronas, aerogeradores, 
-projeto de filtros, algoritmos de controle e etc. 
+\section{Desenvolvimentos Futuros}
+
+Testes ainda estão sendo realizados para verificação do controle de tensão do barramento de corrente contínua, e até o momento 
+da publicação do presente trabalho observou-se que para o caso em que o inversor estava em atuando isolado da rede elétrica, 
+o sistema atingiu os requisitos impostos.
+
+Apesar da validação da malha de corrente contínua do inversor, não foi apresentado os resultados obtidos neste trabalho
+pois ainda não foi possível atestar o funcionamento do inversor na operação de STATCOM. 
+
+Posteriormente outros testes experimentais serão realizados para verificação do inversor na operação de STATCOM e também 
+para o controle da injeção de potência no barramento através do conversor \textit{boost}.
+
+Baseado no que foi obtido e nos desenvolvimentos planejados deste trabalho, é possível dar prosseguimento a trabalhos relacionados a 
+determinação de distorções harmônicas, máquinas síncronas, aerogeradores, projeto de filtros, algoritmos de controle e etc.
